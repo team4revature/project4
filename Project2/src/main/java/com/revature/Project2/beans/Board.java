@@ -145,7 +145,6 @@ public class Board implements Serializable {
 		this.scrumMaster = scrumMaster;
 		this.scrumProductOwner = scrumProductOwner;
 		this.scrumTeam = scrumTeam;
-		this.burnDown = burnDown;
 	}
 	
 	public Board() {

@@ -36,9 +36,9 @@ public class Swimlane {
 	private List<Story> stories;
 	
 	//boards this swimlane belongs to
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="B_ID")
-	private Board board;
+//	@ManyToOne(fetch=FetchType.EAGER)
+//	@JoinColumn(name="B_ID")
+//	private Board board;
 
 	public int getSid() {
 		return sid;

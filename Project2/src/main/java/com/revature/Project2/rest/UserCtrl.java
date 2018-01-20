@@ -22,7 +22,6 @@ public class UserCtrl {
 	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable int id) {
 		
-		System.out.println("TODO: REPLACE WITH USER DTO NOT INCLUDING PASSWORD user control get");
 		return userService.getUser(id);
 		
 	}
@@ -30,7 +29,6 @@ public class UserCtrl {
 	@PostMapping("/createUser")
 	public ResponseEntity<User> createUser(@RequestBody User user){
 		
-		System.out.println("TODO: REPLACE RETURN WITH USER DTO NOT INCLUDING PASSWORD user control create");
 		user = userService.createUser(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}

@@ -14,13 +14,11 @@ public class BoardService {
 	
 	public Board getBoard(int id) {
 		
-		System.out.println("REMOVE BEFORE PUSH board service get");
 		return boardRepo.findOne(id);
 	}
 	
 	public Board createBoard(Board board) {
 		
-		System.out.println("REMOVE BEFORE PUSH board service create");
 		return boardRepo.save(board);
 	}
 }

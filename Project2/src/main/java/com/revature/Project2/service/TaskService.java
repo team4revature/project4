@@ -10,18 +10,16 @@ import com.revature.Project2.repository.TaskRepo;
 public class TaskService {
 	
 	@Autowired
-	TaskRepo taskRepo;
+	private TaskRepo taskRepo;
 	
 	public Task getTask(int taskId) {
-		
-		System.out.println("REMOVE BEFORE PUSH - get task");	
+			
 		return taskRepo.findOne(taskId);
 		
 	}
 	
 	public Task createTask(Task task) {
 		
-		System.out.println("REMOVE BEFORE PUSH - create task");
 		taskRepo.save(task);
 		
 		return task;

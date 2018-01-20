@@ -21,14 +21,12 @@ public class TaskCtrl {
 	@GetMapping("/task/{id}")
 	public Task getTask(@PathVariable int id) {
 		
-		System.out.println("REMOVE BEFORE PUSH - get task");
 		return taskService.getTask(id);
 	}
 	
 	@PostMapping("/createTask")
 	public ResponseEntity<Task> createTask(@RequestBody Task task){
 
-		System.out.println("REMOVE BEFORE PUSH - create task");
 		task = taskService.createTask(task);
 		return new ResponseEntity<Task>(task, HttpStatus.CREATED);
 	}

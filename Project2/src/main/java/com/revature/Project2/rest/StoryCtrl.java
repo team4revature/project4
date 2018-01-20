@@ -21,14 +21,12 @@ public class StoryCtrl {
 	@GetMapping("/story/{id}")
 	public Story getStory(@PathVariable int id) {
 		
-		System.out.println("REMOVE BEFORE PUSHING service story get");
 		return storyService.getStory(id);
 	}
 	
 	@PostMapping("/createStory")
 	public ResponseEntity<Story> createStory(@RequestBody Story story) {
 		
-		System.out.println("REMOVE BEFORE PUSHING service story post");
 		story = storyService.createStory(story);
 		return new ResponseEntity<Story>(story, HttpStatus.CREATED);
 	}

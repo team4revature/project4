@@ -21,14 +21,12 @@ public class BoardCtrl {
 	@GetMapping("/board/{id}")
 	public Board getBoard(@PathVariable int id) {
 		
-		System.out.println("REMOVE board control get");
 		return boardService.getBoard(id);
 	}
 	
 	@PostMapping("/createBoard")
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
 		
-		System.out.println("REMOVE board control create");
 		board = boardService.createBoard(board);
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}

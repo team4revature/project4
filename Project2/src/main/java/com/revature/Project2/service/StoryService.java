@@ -14,14 +14,12 @@ public class StoryService {
 	
 	public Story getStory(int id) {
 		
-		System.out.println("REMOVE BEFORE PUSH get story");
 		return storyRepo.findOne(id);
 		
 	}
 	
 	public Story createStory(Story story) {
 		
-		System.out.println("REMOVE BEFORE PUSH create story");
 		return storyRepo.save(story);
 	}
 	

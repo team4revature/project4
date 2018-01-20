@@ -21,15 +21,12 @@ public class SwimlaneCtrl {
 	@GetMapping("/swimlane/{id}")
 	public Swimlane getSwimlane(@PathVariable int id) {
 		
-		System.out.println("REMOVE BEFORE PUSH swimlane control get");
-		
 		return swimService.getSwimlane(id);
 	}
 	
 	@PostMapping("/createSwimlane")
 	public ResponseEntity<Swimlane> createSwimlane(@RequestBody Swimlane swim){
 		
-		System.out.println("REMOVE BEFORE PUSH swimlane control post");
 		swim = swimService.createSwimlane(swim);
 		return new ResponseEntity<Swimlane>(swim, HttpStatus.CREATED);
 		

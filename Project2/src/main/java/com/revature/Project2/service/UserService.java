@@ -14,14 +14,12 @@ public class UserService {
 	
 	public User getUser(int id) {
 		
-		System.out.println("REMOVE user service get");
 		
+		//TODO do not send back regular user object with password: replace with custom DTO
 		return userRepo.findOne(id);
 	}
 	
 	public User createUser(User user) {
-		
-		System.out.println("REMOVE user service create");
 		
 		return userRepo.save(user);
 	}

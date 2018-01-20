@@ -14,13 +14,11 @@ public class SwimlaneService {
 	
 	public Swimlane getSwimlane(int id) {
 		
-		System.out.println("REMOVE BEFORE PUSH service get swimlane");
 		return swimRepo.findOne(id);
 	}
 	
 	public Swimlane createSwimlane(Swimlane swim) {
 		
-		System.out.println("REMOVE BEFORE PUSH service create swimlane");
 		return swimRepo.save(swim);
 	}
 	

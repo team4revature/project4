@@ -32,11 +32,11 @@ public class Task {
 		this.tid = tid;
 	}
 
-	public String getTaskName() {
+	public String getTaskDesc() {
 		return taskDesc;
 	}
 
-	public void setTaskName(String taskDesc) {
+	public void setTaskDesc(String taskDesc) {
 		this.taskDesc = taskDesc;
 	}
 

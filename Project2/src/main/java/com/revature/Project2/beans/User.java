@@ -41,14 +41,6 @@ public class User implements Serializable {
 	
 	@Column(name="LAST_NAME")
 	private String lastName;
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	@Column(name="EMAIL", unique = true)
 	private String email;
@@ -63,8 +55,6 @@ public class User implements Serializable {
 	//list of stories the user is working on
 //	@OneToMany(fetch=FetchType.EAGER)
 //	private List<Story> stories;
-	
-	
 	
 	
 	public int getUid() {
@@ -98,7 +88,6 @@ public class User implements Serializable {
 		super();
 	}
 	
-
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
@@ -135,11 +124,24 @@ public class User implements Serializable {
 		this.lastName = lastName;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	public List<Board> getBoards() {
 		return boards;
 	}
 	
 	public void setBoards(List<Board> boards) {
 		this.boards = boards;
+	}
+
+	@Override
+	public String toString() {
+		return "User [uid=" + uid + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", boards=" + boards + "]";
 	}
 }

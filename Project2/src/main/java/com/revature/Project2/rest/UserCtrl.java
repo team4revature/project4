@@ -1,8 +1,10 @@
 package com.revature.Project2.rest;
 
+import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import com.revature.Project2.beans.User;
 import com.revature.Project2.service.UserService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class UserCtrl {
 	
 	@Autowired
@@ -27,10 +30,21 @@ public class UserCtrl {
 	}
 	
 	@PostMapping("/createUser")
-	public ResponseEntity<User> createUser(@RequestBody User user){
-		
+	public ResponseEntity<User> createUser(@RequestBody User user) {
 		user = userService.createUser(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<User> login(@RequestBody User user) {
+		System.out.println(user);
+		user = userService.validateUser(user);
+		System.out.println(user);
+		
+		if(user == null) {
+			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<User>(user, HttpStatus.FOUND);
+	}
 }

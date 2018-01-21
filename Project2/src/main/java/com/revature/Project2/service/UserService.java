@@ -13,8 +13,6 @@ public class UserService {
 	private UserRepo userRepo;
 	
 	public User getUser(int id) {
-		
-		
 		//TODO do not send back regular user object with password: replace with custom DTO
 		return userRepo.findOne(id);
 	}
@@ -24,4 +22,14 @@ public class UserService {
 		return userRepo.save(user);
 	}
 	
+	public User validateUser(User user) {
+		User retrievedUser = userRepo.findUserByUsername(user.getUsername());
+		System.out.println("Retrieved user: " + retrievedUser);
+		if(retrievedUser == null || !retrievedUser.getPassword().equals(user.getPassword())) {
+			System.out.println("null or passwords don't match");
+			return null;
+		}
+		
+		return retrievedUser;
+	}
 }

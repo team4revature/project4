@@ -17,6 +17,11 @@ public class UserService {
 		return userRepo.findOne(id);
 	}
 	
+	public User getUserByName(String userName) {
+		
+		return userRepo.findUserByUsername(userName);
+		
+	}
 	public User createUser(User user) {
 		
 		return userRepo.save(user);

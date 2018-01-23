@@ -1,6 +1,5 @@
 package com.revature.Project2.rest;
 
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,11 @@ public class UserCtrl {
 		
 		return userService.getUser(id);
 		
+	}
+	
+	@GetMapping("/userName/{userName}")
+	public User getUser(@PathVariable String userName) {
+		return userService.getUserByName(userName);
 	}
 	
 	@PostMapping("/createUser")

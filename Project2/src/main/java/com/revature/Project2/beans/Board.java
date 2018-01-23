@@ -23,6 +23,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="SCRUM_BOARD")
 public class Board implements Serializable {
@@ -54,24 +56,25 @@ public class Board implements Serializable {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<Swimlane> swimlanes;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="SCRUM_MASTER")
 	private User scrumMaster;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@JsonIgnore
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="SCRUM_PRODUCT_OWNER")
 	private User scrumProductOwner;
 	
 	//list of all team members
-	@ManyToMany(fetch=FetchType.EAGER)
+	@JsonIgnore
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="TEAM_MEMBER",
 			joinColumns= @JoinColumn(name="BOARD_ID"),
 			inverseJoinColumns= @JoinColumn(name="USER_ID"))
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
-	@ElementCollection(fetch=FetchType.EAGER)
+	@ElementCollection(fetch=FetchType.LAZY)
     @CollectionTable(name = "HISTORY")
     @MapKeyColumn(name = "KEY")
     @Column(name = "VALUE")

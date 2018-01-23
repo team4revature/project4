@@ -41,14 +41,6 @@ public class Board implements Serializable {
 	@Column(name="BOARD_NAME", unique=true)
 	private String boardName;
 	
-	public String getBoardName() {
-		return boardName;
-	}
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
-	}
-
 	//swimlanes
 	@OneToMany(fetch=FetchType.EAGER,
 			cascade = CascadeType.ALL,
@@ -91,6 +83,14 @@ public class Board implements Serializable {
 
 	public void setScrumMaster(User scrumMaster) {
 		this.scrumMaster = scrumMaster;
+	}
+	
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
 	}
 
 	public Map<Date, Integer> getBurnDown() {

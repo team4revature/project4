@@ -24,6 +24,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="SCRUM_BOARD")
@@ -56,17 +57,17 @@ public class Board implements Serializable {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<Swimlane> swimlanes;
-	@JsonIgnore
+	@JsonIgnoreProperties ( { "boards"} )
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="SCRUM_MASTER")
 	private User scrumMaster;
-	@JsonIgnore
+	@JsonIgnoreProperties ( { "boards"} )
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="SCRUM_PRODUCT_OWNER")
 	private User scrumProductOwner;
 	
 	//list of all team members
-	@JsonIgnore
+	@JsonIgnoreProperties ( { "boards"} )
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="TEAM_MEMBER",
 			joinColumns= @JoinColumn(name="BOARD_ID"),

@@ -58,24 +58,24 @@ public class Board implements Serializable {
 			orphanRemoval = true)
 	private List<Swimlane> swimlanes;
 	@JsonIgnoreProperties ( { "boards"} )
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SCRUM_MASTER")
 	private User scrumMaster;
 	@JsonIgnoreProperties ( { "boards"} )
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SCRUM_PRODUCT_OWNER")
 	private User scrumProductOwner;
 	
 	//list of all team members
 	@JsonIgnoreProperties ( { "boards"} )
-	@ManyToMany(fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="TEAM_MEMBER",
 			joinColumns= @JoinColumn(name="BOARD_ID"),
 			inverseJoinColumns= @JoinColumn(name="USER_ID"))
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
-	@ElementCollection(fetch=FetchType.LAZY)
+	@ElementCollection(fetch=FetchType.EAGER)
     @CollectionTable(name = "HISTORY")
     @MapKeyColumn(name = "KEY")
     @Column(name = "VALUE")

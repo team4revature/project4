@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Board;
+import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.service.BoardService;
 
 @RestController
@@ -33,4 +34,10 @@ public class BoardCtrl {
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/addSwimlane/{id}")
+	public ResponseEntity<Board> addSwimlane(@PathVariable int id, @RequestBody Swimlane swimlane) {
+		
+		Board board = boardService.addSwimlane(id, swimlane);
+		return new ResponseEntity<Board>(board, HttpStatus.OK);
+	}
 }

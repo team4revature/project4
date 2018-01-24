@@ -49,6 +49,6 @@ public class UserCtrl {
 			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<User>(user, HttpStatus.FOUND);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 }

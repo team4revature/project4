@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -18,12 +16,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -57,16 +53,19 @@ public class Board implements Serializable {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<Swimlane> swimlanes;
-	@JsonIgnoreProperties({"boards"})
-	@ManyToOne(fetch=FetchType.LAZY)
+
+	@JsonIgnoreProperties ( { "boards"} )
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SCRUM_MASTER")
 	private User scrumMaster;
-	@JsonIgnoreProperties({"boards"})
-	@ManyToOne(fetch=FetchType.LAZY)
+	
+	@JsonIgnoreProperties ( { "boards"} )
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SCRUM_PRODUCT_OWNER")
 	private User scrumProductOwner;
 	
 	//list of all team members
+
 	@JsonIgnoreProperties({"boards"})
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="TEAM_MEMBER",
@@ -75,18 +74,10 @@ public class Board implements Serializable {
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
-	
 	@OneToMany(fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<History> burnDown;
-	
-	
-//	@ElementCollection(fetch=FetchType.LAZY)
-//    @CollectionTable(name = "HISTORY")
-//    @MapKeyColumn(name = "KEY")
-//    @Column(name = "VALUE")
-//	private Map<Date, Integer> burnDown;
 
 	public int getBid() {
 		return bid;
@@ -103,14 +94,6 @@ public class Board implements Serializable {
 	public void setScrumMaster(User scrumMaster) {
 		this.scrumMaster = scrumMaster;
 	}
-
-//	public Map<Date, Integer> getBurnDown() {
-//		return burnDown;
-//	}
-//
-//	public void setBurnDown(Map<Date, Integer> burnDown) {
-//		this.burnDown = burnDown;
-//	}
 
 	public List<Swimlane> getSwimlanes() {
 		return swimlanes;

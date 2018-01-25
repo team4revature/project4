@@ -23,6 +23,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -53,7 +56,7 @@ public class Board implements Serializable {
 	}
 
 	//swimlanes
-	@OneToMany(fetch=FetchType.EAGER,
+	@OneToMany(fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<Swimlane> swimlanes;
@@ -75,8 +78,8 @@ public class Board implements Serializable {
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
-	
-	@OneToMany(fetch=FetchType.LAZY,
+	//@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(fetch=FetchType.EAGER,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<History> burnDown;
@@ -87,6 +90,14 @@ public class Board implements Serializable {
 //    @MapKeyColumn(name = "KEY")
 //    @Column(name = "VALUE")
 //	private Map<Date, Integer> burnDown;
+
+	public List<History> getBurnDown() {
+		return burnDown;
+	}
+
+	public void setBurnDown(List<History> burnDown) {
+		this.burnDown = burnDown;
+	}
 
 	public int getBid() {
 		return bid;

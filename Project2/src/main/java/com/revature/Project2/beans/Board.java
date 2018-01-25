@@ -20,13 +20,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-<<<<<<< HEAD
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-=======
->>>>>>> eda8e03dadbb2c5c3fe0ecfe92bc595dde798d87
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -81,12 +80,10 @@ public class Board implements Serializable {
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
-<<<<<<< HEAD
+
 	//@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(fetch=FetchType.EAGER,
-=======
+
 	@OneToMany(fetch=FetchType.LAZY,
->>>>>>> eda8e03dadbb2c5c3fe0ecfe92bc595dde798d87
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<History> burnDown;

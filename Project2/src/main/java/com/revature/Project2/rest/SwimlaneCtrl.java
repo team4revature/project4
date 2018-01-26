@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.service.SwimlaneService;
 
 @RestController
@@ -26,7 +27,7 @@ public class SwimlaneCtrl {
 		return swimService.getSwimlane(id);
 	}
 	
-	@PostMapping("/createSwimlane")
+	@PostMapping("/swimlane/createSwimlane")
 	public ResponseEntity<Swimlane> createSwimlane(@RequestBody Swimlane swim){
 		
 		swim = swimService.createSwimlane(swim);
@@ -34,4 +35,9 @@ public class SwimlaneCtrl {
 		
 	}
 	
+	@PostMapping("/swimlane/addstory")
+	public ResponseEntity<Swimlane> addStory(@RequestBody StoryDTO story) {
+		Swimlane swimlane = swimService.addStory(story);
+		return new ResponseEntity<Swimlane>(swimlane, HttpStatus.CREATED);
+	}
 }

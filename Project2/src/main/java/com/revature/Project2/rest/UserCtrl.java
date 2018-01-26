@@ -46,9 +46,9 @@ public class UserCtrl {
 		System.out.println(user);
 		
 		if(user == null) {
-			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
 		}
 		
-		return new ResponseEntity<User>(user, HttpStatus.FOUND);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 }

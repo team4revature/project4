@@ -87,6 +87,32 @@ public class Board implements Serializable {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	private List<History> burnDown;
+	
+	public Board() {
+		super();
+	}
+	
+	public Board(int bid, String boardName, List<Swimlane> swimlanes, User scrumMaster, User scrumProductOwner, List<User> scrumTeam,
+			List<History> burnDown) {
+		super();
+		this.bid = bid;
+		this.boardName = boardName;
+		this.swimlanes = swimlanes;
+		this.scrumMaster = scrumMaster;
+		this.scrumProductOwner = scrumProductOwner;
+		this.scrumTeam = scrumTeam;
+		this.burnDown = burnDown;
+	}
+
+	public Board(String boardName, List<Swimlane> swimlanes, User scrumMaster, User scrumProductOwner, List<User> scrumTeam,
+			Map<Date, Integer> burnDown) {
+		super();
+		this.boardName = boardName;
+		this.swimlanes = swimlanes;
+		this.scrumMaster = scrumMaster;
+		this.scrumProductOwner = scrumProductOwner;
+		this.scrumTeam = scrumTeam;
+	}
 
 	public List<History> getBurnDown() {
 		return burnDown;
@@ -136,31 +162,9 @@ public class Board implements Serializable {
 		this.scrumTeam = scrumTeam;
 	}
 
-	public Board(int bid, String boardName, List<Swimlane> swimlanes, User scrumMaster, User scrumProductOwner, List<User> scrumTeam,
-			List<History> burnDown) {
-		super();
-		this.bid = bid;
-		this.boardName = boardName;
-		this.swimlanes = swimlanes;
-		this.scrumMaster = scrumMaster;
-		this.scrumProductOwner = scrumProductOwner;
-		this.scrumTeam = scrumTeam;
-		this.burnDown = burnDown;
-	}
 
-	public Board(String boardName, List<Swimlane> swimlanes, User scrumMaster, User scrumProductOwner, List<User> scrumTeam,
-			Map<Date, Integer> burnDown) {
-		super();
-		this.boardName = boardName;
-		this.swimlanes = swimlanes;
-		this.scrumMaster = scrumMaster;
-		this.scrumProductOwner = scrumProductOwner;
-		this.scrumTeam = scrumTeam;
-	}
 	
-	public Board() {
-		super();
-	}
+	
 	
 	
 }

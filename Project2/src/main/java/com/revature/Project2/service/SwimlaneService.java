@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.repository.SwimlaneRepo;
 
 @Service
@@ -22,4 +23,10 @@ public class SwimlaneService {
 		return swimRepo.save(swim);
 	}
 	
+	public Swimlane addStory(StoryDTO story) {
+		
+		Swimlane swimlane = swimRepo.findOne(story.getSwimlaneId());
+		swimlane.getStories().add(story.getStory());
+		return swimRepo.save(swimlane);
+	}
 }

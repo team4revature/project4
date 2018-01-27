@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Story;
+import com.revature.Project2.dto.TaskDTO;
 import com.revature.Project2.service.StoryService;
 
 @RestController
@@ -33,4 +35,8 @@ public class StoryCtrl {
 		return new ResponseEntity<Story>(story, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/story/addtask")
+	public ResponseEntity<Story> createSwimlane(@RequestBody TaskDTO dto) {
+		return new ResponseEntity<Story>(storyService.addTask(dto), HttpStatus.CREATED);
+	}
 }

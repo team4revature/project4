@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +43,9 @@ public class BoardCtrl {
 	}
 	
 	@GetMapping("/burndown/{id}")
-	public List<HistoryDto> getBurndownByBoardId(@PathVariable int id) {
+	public List<HistoryDto> getBurndownByBoardId(@PathVariable int id, HttpSession session) {
+		
+		System.out.println("session is now " + session.getId());
 		
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 		

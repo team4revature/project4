@@ -1,5 +1,7 @@
 package com.revature.Project2.rest;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +42,12 @@ public class UserCtrl {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<User> login(@RequestBody User user) {
-		System.out.println(user);
-		user = userService.validateUser(user);
-		System.out.println(user);
+	public ResponseEntity<User> login(@RequestBody User user, HttpSession session) {
+		
+		System.out.println("session is currently " + session.getId());
+		//System.out.println(user);
+		user = userService.validateUser(user, session);
+		//System.out.println(user);
 		
 		if(user == null) {
 			return new ResponseEntity<User>(user, HttpStatus.NOT_FOUND);

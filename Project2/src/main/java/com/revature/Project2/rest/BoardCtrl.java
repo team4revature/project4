@@ -37,9 +37,7 @@ public class BoardCtrl {
 	@GetMapping("/board/{id}")
 	public Board getBoard(@PathVariable int id) {
 		Board board = boardService.getBoard(id);
-		for(Story s : board.getSwimlanes().get(0).getStories()) {
-			System.out.println(s);
-		}
+	
 		return board;
 	}
 	@GetMapping("/getboards/{id}")
@@ -63,7 +61,7 @@ public class BoardCtrl {
 	
 	@PostMapping("/board/addswimlane")
 	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
-		System.out.println("in add swimlane");
+		System.out.println("in add swimlane " + dto);
 		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
 	}
 }

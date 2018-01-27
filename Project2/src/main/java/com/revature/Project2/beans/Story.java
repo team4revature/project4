@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -58,6 +59,7 @@ public String getStoryName() {
 	@OneToMany(fetch=FetchType.EAGER,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
+	@OrderColumn
 	private List<Task> tasks;
 
 	public int getStId() {

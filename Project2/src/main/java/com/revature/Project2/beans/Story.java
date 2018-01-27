@@ -102,6 +102,11 @@ public String getStoryName() {
 	public Story() {
 		super();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Story [stId=" + stId + ", storyName=" + storyName + ", difficulty=" + difficulty + ", tasks=" + tasks
+				+ "]";
+	}
 	
 }

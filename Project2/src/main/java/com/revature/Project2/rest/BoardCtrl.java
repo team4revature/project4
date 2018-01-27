@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Board;
+
+import com.revature.Project2.beans.Story;
+import com.revature.Project2.dto.SwimlaneDTO;
+
 import com.revature.Project2.beans.User;
 import com.revature.Project2.service.BoardService;
 import com.revature.Project2.service.UserService;
@@ -20,6 +24,7 @@ import com.revature.Project2.service.UserService;
 import ch.qos.logback.core.net.SyslogOutputStream;
 
 @RestController
+//requestmapping board
 @CrossOrigin(origins = "*")
 public class BoardCtrl {
 	
@@ -31,8 +36,11 @@ public class BoardCtrl {
 	
 	@GetMapping("/board/{id}")
 	public Board getBoard(@PathVariable int id) {
-		
-		return boardService.getBoard(id);
+		Board board = boardService.getBoard(id);
+		for(Story s : board.getSwimlanes().get(0).getStories()) {
+			System.out.println(s);
+		}
+		return board;
 	}
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
@@ -52,4 +60,9 @@ public class BoardCtrl {
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/board/addswimlane")
+	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
+		System.out.println("in add swimlane");
+		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
+	}
 }

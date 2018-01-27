@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.Project2.beans.Story;
+import com.revature.Project2.dto.TaskDTO;
 import com.revature.Project2.repository.StoryRepo;
 
 @Service
@@ -23,5 +24,9 @@ public class StoryService {
 		return storyRepo.save(story);
 	}
 	
-	
+	public Story addTask(TaskDTO dto) {
+		Story story = storyRepo.findOne(dto.getStoryId());
+		story.getTasks().add(dto.getTask());
+		return storyRepo.save(story);
+	}
 }

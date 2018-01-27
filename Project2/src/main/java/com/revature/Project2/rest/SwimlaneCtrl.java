@@ -27,17 +27,15 @@ public class SwimlaneCtrl {
 		return swimService.getSwimlane(id);
 	}
 	
-	@PostMapping("/swimlane/createSwimlane")
-	public ResponseEntity<Swimlane> createSwimlane(@RequestBody Swimlane swim){
-		
-		swim = swimService.createSwimlane(swim);
-		return new ResponseEntity<Swimlane>(swim, HttpStatus.CREATED);
-		
-	}
-	
 	@PostMapping("/swimlane/addstory")
 	public ResponseEntity<Swimlane> addStory(@RequestBody StoryDTO story) {
 		Swimlane swimlane = swimService.addStory(story);
 		return new ResponseEntity<Swimlane>(swimlane, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/swimlane/delete")
+	public ResponseEntity deleteSwimlane(@RequestBody int swimlaneId) {
+		swimService.deleteSwimlane(swimlaneId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

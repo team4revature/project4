@@ -29,4 +29,9 @@ public class SwimlaneService {
 		swimlane.getStories().add(story.getStory());
 		return swimRepo.save(swimlane);
 	}
+	
+	public boolean deleteSwimlane(int swimlaneId) {
+		swimRepo.delete(swimlaneId);
+		return true;
+	}
 }

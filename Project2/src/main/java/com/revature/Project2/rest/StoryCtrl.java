@@ -28,13 +28,6 @@ public class StoryCtrl {
 		return storyService.getStory(id);
 	}
 	
-	@PostMapping("/createStory")
-	public ResponseEntity<Story> createStory(@RequestBody Story story) {
-		
-		story = storyService.createStory(story);
-		return new ResponseEntity<Story>(story, HttpStatus.CREATED);
-	}
-	
 	@PostMapping("/story/addtask")
 	public ResponseEntity<Story> createSwimlane(@RequestBody TaskDTO dto) {
 		return new ResponseEntity<Story>(storyService.addTask(dto), HttpStatus.CREATED);

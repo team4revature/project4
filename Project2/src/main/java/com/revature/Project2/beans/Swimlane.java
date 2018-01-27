@@ -97,5 +97,9 @@ public class Swimlane {
 	public Swimlane() {
 		super();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Swimlane [sid=" + sid + ", swimlaneName=" + swimlaneName + ", stories=" + stories + "]";
+	}
 }

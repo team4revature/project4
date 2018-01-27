@@ -42,14 +42,13 @@ public class BoardCtrl {
 	
 	@PostMapping("/createBoard")
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
-		System.out.println("fuckers" + board.getBid());
-		
-		System.out.println("userid: " + board.getScrumMaster().getUid());
-		System.out.println("username: " + userService.getUser(board.getScrumMaster().getUid()).getUsername());
+		boardService.createBoard(board);
 		User u = userService.getUser(board.getScrumMaster().getUid());
+		System.out.println("before" + u.getBoards().size());
+		u.getBoards().add(board);
+		System.out.println("after" + u.getBoards().size());
+		userService.createUser(u);	
 		
-		userService.getUser(board.getScrumMaster().getUid()).getBoards().add(board);
-		board = boardService.createBoard(board);
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
 	

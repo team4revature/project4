@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Story;
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
@@ -37,8 +38,18 @@ public class SwimlaneService {
 		return swimlane.getStories().get(swimlane.getStories().size() - 1);
 	}
 	
-	public boolean deleteSwimlane(Swimlane swimlane) {
-		swimRepo.delete(swimlane);
+	public boolean removeStory(DeleteDTO dto) {
+		Swimlane swimlane = swimRepo.findOne(dto.getObjectId());
+		swimlane.getStories().remove(dto.getIndex());
+		swimRepo.save(swimlane);
+	
+		return true;
+	}
+	
+	public boolean deleteSwimlane(DeleteDTO dto) {
+		Board board = boardRepo.findOne(dto.getObjectId());
+		board.getSwimlanes().remove(dto.getIndex());
+		boardRepo.save(board);
 	
 		return true;
 	}

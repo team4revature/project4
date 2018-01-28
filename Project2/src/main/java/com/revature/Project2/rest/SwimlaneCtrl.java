@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Story;
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.service.SwimlaneService;
 
@@ -34,9 +35,15 @@ public class SwimlaneCtrl {
 		return new ResponseEntity<Story>(story, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/swimlane/removestory")
+	public ResponseEntity removeStory(@RequestBody DeleteDTO dto) {
+		swimService.removeStory(dto);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
 	@PostMapping("/swimlane/delete")
-	public ResponseEntity deleteSwimlane(@RequestBody Swimlane swimlane) {
-		swimService.deleteSwimlane(swimlane);
+	public ResponseEntity deleteSwimlane(@RequestBody DeleteDTO dto) {
+		swimService.deleteSwimlane(dto);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

@@ -18,11 +18,8 @@ public class TaskService {
 		
 	}
 	
-	public Task createTask(Task task) {
-		
-		taskRepo.save(task);
-		
-		return task;
+	public Task updateTask(Task task) {
+		return taskRepo.save(task);
 	}
 	
 	public boolean deleteTask(Task task) {

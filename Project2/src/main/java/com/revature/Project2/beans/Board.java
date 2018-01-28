@@ -37,7 +37,7 @@ public class Board implements Serializable {
 	@SequenceGenerator(sequenceName="BOARD_SEQ", name="BOARD_SEQ")
 	@GeneratedValue(generator="BOARD_SEQ", strategy=GenerationType.SEQUENCE)
 	private int bid;
-	
+
 	@Column(name="BOARD_NAME", unique=true)
 	private String boardName;
 	
@@ -147,10 +147,11 @@ public class Board implements Serializable {
 	public void setScrumTeam(List<User> scrumTeam) {
 		this.scrumTeam = scrumTeam;
 	}
-
-
 	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Board [bid=" + bid + ", boardName=" + boardName + ", swimlanes=" + swimlanes + ", scrumMaster="
+				+ scrumMaster + ", scrumProductOwner=" + scrumProductOwner + ", scrumTeam=" + scrumTeam + ", burnDown="
+				+ burnDown + "]";
+	}
 }

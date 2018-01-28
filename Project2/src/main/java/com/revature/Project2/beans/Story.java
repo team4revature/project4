@@ -16,27 +16,27 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="SCRUM_STORY")
+@Table(name = "SCRUM_STORY")
 public class Story {
-	
+
 	@Id
-	@Column(name="ST_ID")
-	@SequenceGenerator(sequenceName="STORY_SEQ", name="STORY_SEQ")
-	@GeneratedValue(generator="STORY_SEQ", strategy=GenerationType.SEQUENCE)
+	@Column(name = "ST_ID")
+	@SequenceGenerator(sequenceName = "STORY_SEQ", name = "STORY_SEQ")
+	@GeneratedValue(generator = "STORY_SEQ", strategy = GenerationType.SEQUENCE)
 	private int stId;
-	
-	@Column(name="STORY_NAME")
+
+	@Column(name = "STORY_NAME")
 	private String storyName;
-	
-	@Column(name="DIFFICULTY")
+
+	@Column(name = "DIFFICULTY")
 	private int difficulty;
-	
-	//user working on this story
-//	@ManyToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name="U_ID")
-//	private User user;
-	
-public int getDifficulty() {
+
+	// user working on this story
+	// @ManyToOne(fetch=FetchType.EAGER)
+	// @JoinColumn(name="U_ID")
+	// private User user;
+
+	public int getDifficulty() {
 		return difficulty;
 	}
 
@@ -44,7 +44,7 @@ public int getDifficulty() {
 		this.difficulty = difficulty;
 	}
 
-public String getStoryName() {
+	public String getStoryName() {
 		return storyName;
 	}
 
@@ -52,15 +52,13 @@ public String getStoryName() {
 		this.storyName = storyName;
 	}
 
-	//	@ManyToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name="B_ID")
-//	private Swimlane 
-//	
-	//tasks associated with this story
-	@OneToMany(fetch=FetchType.EAGER,
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
-	@JoinColumn(name="ST_ID")
+	// @ManyToOne(fetch=FetchType.EAGER)
+	// @JoinColumn(name="B_ID")
+	// private Swimlane
+	//
+	// tasks associated with this story
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "ST_ID")
 	@OrderColumn
 	private List<Task> tasks;
 
@@ -87,14 +85,14 @@ public String getStoryName() {
 		this.tasks = tasks;
 	}
 
-	public Story( String storyName, List<Task> tasks) {
+	public Story(String storyName, List<Task> tasks) {
 		super();
 		this.storyName = storyName;
-//		this.stId = stId;
-//		this.user = user;
+		// this.stId = stId;
+		// this.user = user;
 		this.tasks = tasks;
-	}	
-	
+	}
+
 	public Story() {
 		super();
 	}
@@ -104,5 +102,5 @@ public String getStoryName() {
 		return "Story [stId=" + stId + ", storyName=" + storyName + ", difficulty=" + difficulty + ", tasks=" + tasks
 				+ "]";
 	}
-	
+
 }

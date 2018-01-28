@@ -40,6 +40,7 @@ public class BoardCtrl {
 	
 		return board;
 	}
+	
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
 		User userd = userService.getUser(id);

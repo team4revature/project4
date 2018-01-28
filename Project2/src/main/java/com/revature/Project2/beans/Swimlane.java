@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
@@ -33,14 +34,10 @@ public class Swimlane {
 	@OneToMany(fetch=FetchType.EAGER,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
+	@JoinColumn(name="S_ID")
 	@OrderColumn
 	private List<Story> stories;
 	
-	//boards this swimlane belongs to
-//	@ManyToOne(fetch=FetchType.EAGER)
-//	@JoinColumn(name="B_ID")
-//	private Board board;
-
 	public int getSid() {
 		return sid;
 	}
@@ -64,14 +61,6 @@ public class Swimlane {
 	public void setStories(List<Story> stories) {
 		this.stories = stories;
 	}
-
-//	public Board getBoard() {
-//		return board;
-//	}
-//
-//	public void setBoard(Board board) {
-//		this.board = board;
-//	}
 
 	public Swimlane(int sid, String name, List<Story> stories) {
 		super();

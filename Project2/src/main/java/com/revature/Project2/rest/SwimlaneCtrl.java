@@ -36,8 +36,7 @@ public class SwimlaneCtrl {
 	
 	@PostMapping("/swimlane/delete")
 	public ResponseEntity deleteSwimlane(@RequestBody Swimlane swimlane) {
-		System.out.println("deleting swimlane: " + swimlane);
-		swimService.deleteSwimlane(swimlane.getSid());
+		swimService.deleteSwimlane(swimlane);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

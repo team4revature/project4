@@ -29,4 +29,9 @@ public class StoryService {
 		story.getTasks().add(dto.getTask());
 		return storyRepo.save(story);
 	}
+	
+	public boolean deleteStory(Story story) {
+		storyRepo.delete(story.getStId());
+		return true;
+	}
 }

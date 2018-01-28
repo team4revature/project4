@@ -3,9 +3,11 @@ package com.revature.Project2.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Story;
 import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.dto.StoryDTO;
+import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
 
 @Service
@@ -13,6 +15,9 @@ public class SwimlaneService {
 	
 	@Autowired
 	SwimlaneRepo swimRepo;
+	
+	@Autowired
+	BoardRepo boardRepo;
 	
 	public Swimlane getSwimlane(int id) {
 		
@@ -32,8 +37,9 @@ public class SwimlaneService {
 		return swimlane.getStories().get(swimlane.getStories().size() - 1);
 	}
 	
-	public boolean deleteSwimlane(int swimlaneId) {
-		swimRepo.delete(swimlaneId);
+	public boolean deleteSwimlane(Swimlane swimlane) {
+		swimRepo.delete(swimlane);
+	
 		return true;
 	}
 }

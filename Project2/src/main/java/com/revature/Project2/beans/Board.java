@@ -54,6 +54,7 @@ public class Board implements Serializable {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	@OrderColumn
+	@JoinColumn(name="B_ID")
 	private List<Swimlane> swimlanes;
 
 	@JsonIgnoreProperties ( { "boards"} )

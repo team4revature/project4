@@ -25,4 +25,9 @@ public class TaskService {
 		return task;
 	}
 	
+	public boolean deleteTask(Task task) {
+		taskRepo.delete(task.getTid());
+		return true;
+	}
+	
 }

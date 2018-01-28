@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.beans.Task;
 import com.revature.Project2.service.TaskService;
 
@@ -31,5 +32,11 @@ public class TaskCtrl {
 
 		task = taskService.createTask(task);
 		return new ResponseEntity<Task>(task, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/task/delete")
+	public ResponseEntity deleteTask(@RequestBody Task task) {
+		taskService.deleteTask(task);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

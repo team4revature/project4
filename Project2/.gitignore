@@ -11,7 +11,7 @@ target/
 
 #Adding .target so it doesn't keep breaking everyone's code 
 .target
-
+../.recommenders
 
 ### IntelliJ IDEA ###
 .idea

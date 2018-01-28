@@ -25,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="SCRUM_BOARD")
+
 public class Board implements Serializable {
 	
 	/**
@@ -34,6 +35,7 @@ public class Board implements Serializable {
 
 	@Id
 	@Column(name="B_ID")
+	@OrderColumn
 	@SequenceGenerator(sequenceName="BOARD_SEQ", name="BOARD_SEQ")
 	@GeneratedValue(generator="BOARD_SEQ", strategy=GenerationType.SEQUENCE)
 	private int bid;
@@ -77,8 +79,7 @@ public class Board implements Serializable {
 	
 	//map for the burndown chart
 	@OneToMany(fetch=FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+			cascade = CascadeType.ALL)
 	private List<History> burnDown;
 	
 	public Board() {

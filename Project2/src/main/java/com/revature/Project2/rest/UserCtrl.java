@@ -42,17 +42,28 @@ public class UserCtrl {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<User> login(@RequestBody User user, HttpSession session) {
+	public ResponseEntity<User> login(@RequestBody User user) {
 		
-		System.out.println("session is currently " + session.getId());
+		//System.out.println("session is currently " + session.getId());
 		//System.out.println(user);
-		user = userService.validateUser(user, session);
+		user = userService.validateUser(user);
 		//System.out.println(user);
 		
 		if(user == null) {
 			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
 		}
 		
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@RequestBody User user) {
+		
+		user = userService.createUser(user);
+		
+		if(user == null) {
+			return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 }

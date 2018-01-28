@@ -29,10 +29,15 @@ public class UserService {
 	}
 	public User createUser(User user) {
 		
-		return userRepo.save(user);
+		if(userRepo.findUserByUsername(user.getUsername()) == null) {
+			return userRepo.save(user);
+		}
+		else {
+			return null;
+		}
 	}
 	
-	public User validateUser(User user, HttpSession session) {
+	public User validateUser(User user) {
 		System.out.println("in validateUser");
 		User retrievedUser = userRepo.findUserByUsername(user.getUsername());
 		System.out.println("Retrieved user: " + retrievedUser);
@@ -40,8 +45,6 @@ public class UserService {
 			System.out.println("null or passwords don't match");
 			return null;
 		}
-		session.setAttribute("user", retrievedUser);
-		System.out.println("session is currently " + session.getId());
 		return retrievedUser;
 	}
 }

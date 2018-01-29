@@ -40,6 +40,7 @@ public class BoardCtrl {
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
 		User userd = userService.getUser(id);
+		System.out.println("boards" + userd.getBoards().size());
 		return userd.getBoards();
 	}
 	
@@ -53,6 +54,15 @@ public class BoardCtrl {
 		userService.createUser(u);	
 		
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/updateBoard")
+	public ResponseEntity<Board> saveBoard(@RequestBody Board board){
+		System.out.println(board);
+		boardService.createBoard(board);
+		
+		return new ResponseEntity<Board>(board, HttpStatus.ACCEPTED);
+		
 	}
 	
 	@PostMapping("/board/addswimlane")

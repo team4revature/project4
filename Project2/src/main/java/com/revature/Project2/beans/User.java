@@ -48,7 +48,7 @@ public class User implements Serializable {
 	private String email;
 	
 	//list of all boards the user contributes to
-	@OneToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "TEAM_MEMBER", 
 	joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "U_ID"), 
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID", 

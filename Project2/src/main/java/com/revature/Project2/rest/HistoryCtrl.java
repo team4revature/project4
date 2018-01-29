@@ -26,7 +26,7 @@ public class HistoryCtrl {
 	@PostMapping("/createHistory")
 	public History createHistory(@RequestBody History history) {
 		
-		history = historyService.createBoard(history);
+		history = historyService.createHistory(history);
 		return history;
 		
 	}

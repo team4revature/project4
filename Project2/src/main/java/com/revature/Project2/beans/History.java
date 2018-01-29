@@ -91,6 +91,14 @@ public class History implements Serializable {
 		this.value = value;
 	}
 	
+	public History( Date key, int value) {
+		super();
+		this.key = key;
+		this.value = value;
+		
+		
+	}
+	
 	public History() {
 		
 	}

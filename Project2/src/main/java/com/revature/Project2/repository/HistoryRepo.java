@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import com.revature.Project2.beans.History;
 
 public interface HistoryRepo extends CrudRepository<History, Integer> {
-
+	
 }

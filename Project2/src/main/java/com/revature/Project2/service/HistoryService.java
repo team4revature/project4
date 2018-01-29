@@ -27,7 +27,7 @@ public class HistoryService {
 
 	}
 	
-	public History createBoard(History history) {
+	public History createHistory(History history) {
 
 		history = historyRepo.save(history);
 //		System.out.println("" + history.getKey());

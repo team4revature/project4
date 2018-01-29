@@ -59,7 +59,7 @@ public class Story {
 	// tasks associated with this story
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "ST_ID")
-	@OrderColumn
+	//@OrderColumn
 	private List<Task> tasks;
 
 	public int getStId() {

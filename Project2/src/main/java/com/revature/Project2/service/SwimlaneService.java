@@ -46,6 +46,11 @@ public class SwimlaneService {
 		return true;
 	}
 	
+	public Swimlane updateSwimlane(Swimlane swimlane) {
+		System.out.println(swimRepo.exists(swimlane.getSid()));
+		return swimRepo.save(swimlane);
+	}
+	
 	public boolean deleteSwimlane(DeleteDTO dto) {
 		Board board = boardRepo.findOne(dto.getObjectId());
 		board.getSwimlanes().remove(dto.getIndex());

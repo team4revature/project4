@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,20 +41,11 @@ public class Board implements Serializable {
 
 	@Column(name="BOARD_NAME", unique=true)
 	private String boardName;
-	
-	public String getBoardName() {
-		return boardName;
-	}
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
-	}
 
 	//swimlanes
 	@OneToMany(fetch=FetchType.EAGER,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
-	@OrderColumn
 	@JoinColumn(name="B_ID")
 	private List<Swimlane> swimlanes;
 
@@ -115,6 +107,14 @@ public class Board implements Serializable {
 	public void setBid(int bid) {
 		this.bid = bid;
 	}
+	
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
 
 	public User getScrumMaster() {
 		return scrumMaster;
@@ -147,6 +147,15 @@ public class Board implements Serializable {
 	public void setScrumTeam(List<User> scrumTeam) {
 		this.scrumTeam = scrumTeam;
 	}
+	
+	public List<History> getBurnDown() {
+		return burnDown;
+	}
+
+	public void setBurnDown(List<History> burnDown) {
+		this.burnDown = burnDown;
+	}
+
 	
 	@Override
 	public String toString() {

@@ -45,6 +45,8 @@ public class StoryService {
 	}
 	
 	public boolean deleteStory(Story story) {
+		System.out.println(story);
+		System.out.println(storyRepo.exists(story.getStId()));
 		storyRepo.delete(story.getStId());
 		return true;
 	}

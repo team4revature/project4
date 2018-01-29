@@ -37,9 +37,9 @@ public class BoardService {
 	}
 
 	public List<Swimlane> updateSwimlanes(Board board) {
-		Board myBoard = boardRepo.findOne(board.getBid());
-		swimRepo.delete(myBoard.getSwimlanes());
-		myBoard.setSwimlanes(board.getSwimlanes());
-		return boardRepo.save(myBoard).getSwimlanes();
+		//Board myBoard = boardRepo.findOne(board.getBid());
+		//swimRepo.delete(myBoard.getSwimlanes());
+		//myBoard.setSwimlanes(board.getSwimlanes());
+		return boardRepo.save(board).getSwimlanes();
 	}
 }

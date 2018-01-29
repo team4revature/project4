@@ -45,7 +45,6 @@ public class BoardCtrl {
 	
 	@PostMapping("/createBoard")
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
-		System.out.println(board);
 		boardService.createBoard(board);
 		User u = userService.getUser(board.getScrumMaster().getUid());
 		System.out.println("before" + u.getBoards().size());
@@ -64,7 +63,6 @@ public class BoardCtrl {
 	
 	@PostMapping("/board/updateswimlanes")
 	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody Board board) {
-		System.out.println(board);
 		return new ResponseEntity<List<Swimlane>>(boardService.updateSwimlanes(board), HttpStatus.OK);
 	}
 }

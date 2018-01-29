@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -34,12 +35,12 @@ public class Swimlane {
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	@JoinColumn(name="S_ID")
-	//@OrderColumn
+	@OrderColumn
 	private List<Story> stories;
-	
+	/*
 	@Column(name="LANE_INDEX")
 	private int index;
-	
+	*/
 
 	public int getSid() {
 		return sid;
@@ -64,14 +65,14 @@ public class Swimlane {
 	public void setStories(List<Story> stories) {
 		this.stories = stories;
 	}
-	
+	/*
 	public int getIndex() {
 		return index;
 	}
 
 	public void setIndex(int index) {
 		this.index = index;
-	}
+	}*/
 
 	public Swimlane(int sid, String name, List<Story> stories) {
 		super();
@@ -100,7 +101,7 @@ public class Swimlane {
 
 	@Override
 	public String toString() {
-		return "Swimlane [sid=" + sid + ", swimlaneName=" + swimlaneName + ", stories=" + stories + ", index=" + index
-				+ "]";
+		return "Swimlane [sid=" + sid + ", swimlaneName=" + swimlaneName + ", stories=" + stories + "]";
 	}
+
 }

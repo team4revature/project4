@@ -47,7 +47,7 @@ public class SwimlaneService {
 	}
 	
 	public Swimlane updateSwimlane(Swimlane swimlane) {
-		System.out.println(swimRepo.exists(swimlane.getSid()));
+		System.out.println(swimlane.getStories().size() + ": " + swimlane);
 		return swimRepo.save(swimlane);
 	}
 	

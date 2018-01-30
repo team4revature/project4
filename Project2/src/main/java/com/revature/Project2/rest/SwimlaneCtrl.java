@@ -1,5 +1,7 @@
 package com.revature.Project2.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Story;
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.service.SwimlaneService;
 
@@ -34,10 +38,25 @@ public class SwimlaneCtrl {
 		return new ResponseEntity<Story>(story, HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/swimlane/removestory")
+	public ResponseEntity removeStory(@RequestBody DeleteDTO dto) {
+		swimService.removeStory(dto);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@PostMapping("/swimlane/update")
+	public ResponseEntity<Swimlane> updateSwimlane(@RequestBody Swimlane swimlane) {
+		return new ResponseEntity<Swimlane>(swimService.updateSwimlane(swimlane), HttpStatus.OK);
+	}
+	
+	@PostMapping("/swimlane/updateAll")
+	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody List<Swimlane> swimlanes) {
+		return new ResponseEntity<List<Swimlane>>(swimService.updateSwimlanes(swimlanes), HttpStatus.OK);
+	}
+	
 	@PostMapping("/swimlane/delete")
-	public ResponseEntity deleteSwimlane(@RequestBody Swimlane swimlane) {
-		System.out.println("deleting swimlane: " + swimlane);
-		swimService.deleteSwimlane(swimlane.getSid());
+	public ResponseEntity deleteSwimlane(@RequestBody DeleteDTO dto) {
+		swimService.deleteSwimlane(dto);
 		return new ResponseEntity(HttpStatus.OK);
 	}
 }

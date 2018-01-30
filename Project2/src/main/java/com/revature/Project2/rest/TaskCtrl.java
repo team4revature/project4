@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Task;
+import com.revature.Project2.dto.TaskDTO;
 import com.revature.Project2.service.TaskService;
 
 @RestController
@@ -26,10 +27,14 @@ public class TaskCtrl {
 		return taskService.getTask(id);
 	}
 	
-	@PostMapping("/createTask")
-	public ResponseEntity<Task> createTask(@RequestBody Task task){
-
-		task = taskService.createTask(task);
-		return new ResponseEntity<Task>(task, HttpStatus.CREATED);
+	@PostMapping("/task/update")
+	public ResponseEntity<Task> updateTask(@RequestBody Task task) {
+		return new ResponseEntity<Task>(taskService.updateTask(task), HttpStatus.OK);
+	}
+	
+	@PostMapping("/task/delete")
+	public ResponseEntity deleteTask(@RequestBody Task task) {
+		taskService.deleteTask(task);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

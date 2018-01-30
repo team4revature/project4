@@ -14,15 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Board;
-
-import com.revature.Project2.beans.Story;
-import com.revature.Project2.dto.SwimlaneDTO;
-
+import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.beans.User;
+import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.service.BoardService;
 import com.revature.Project2.service.UserService;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @RestController
 //requestmapping board
@@ -41,6 +37,7 @@ public class BoardCtrl {
 	
 		return board;
 	}
+	
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
 		User userd = userService.getUser(id);
@@ -86,5 +83,10 @@ public class BoardCtrl {
 	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
 		System.out.println("in add swimlane " + dto);
 		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/board/updateswimlanes")
+	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody Board board) {
+		return new ResponseEntity<List<Swimlane>>(boardService.updateSwimlanes(board), HttpStatus.OK);
 	}
 }

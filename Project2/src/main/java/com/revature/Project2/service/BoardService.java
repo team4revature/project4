@@ -62,4 +62,8 @@ public class BoardService {
 		//myBoard.setSwimlanes(board.getSwimlanes());
 		return boardRepo.save(board).getSwimlanes();
 	}
+	
+	public List<History> updateHistory(Board board){
+		return boardRepo.save(board).getBurnDown();
+	}
 }

@@ -107,4 +107,9 @@ public class BoardCtrl {
 	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody Board board) {
 		return new ResponseEntity<List<Swimlane>>(boardService.updateSwimlanes(board), HttpStatus.OK);
 	}
+	
+	@PostMapping("/board/updateburndown")
+	public ResponseEntity<List<History>> updateBurnDown(@RequestBody Board board ) {
+		return new ResponseEntity<List<History>>(boardService.updateHistory(board), HttpStatus.OK);
+	}
 }

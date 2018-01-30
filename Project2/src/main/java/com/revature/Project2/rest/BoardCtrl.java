@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,18 @@ public class BoardCtrl {
 		return userd.getBoards();
 	}
 	
+	@GetMapping("/getMasterBoards/{id}")
+	public List<Board> getMasterBoards(@PathVariable int id) {
+		ArrayList<Board> boards = boardService.getAllMasterBoards(id);
+		return boards;
+	}
+	
+	@GetMapping("/getMemberBoards/{id}")
+	public List<Board> getAssBoards(@PathVariable int id) {
+		ArrayList<Board> boards = boardService.getAllMemberBoards(id);
+		return boards;
+	}
+	
 	@PostMapping("/createBoard")
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
 		boardService.createBoard(board);
@@ -65,6 +78,7 @@ public class BoardCtrl {
 		u.getBoards().add(board);
 		System.out.println("after" + u.getBoards().size());
 		userService.createUser(u);	
+		
 		
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}

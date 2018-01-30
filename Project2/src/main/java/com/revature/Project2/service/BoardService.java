@@ -1,10 +1,7 @@
 package com.revature.Project2.service;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.util.List;
->>>>>>> 218ca786a8bf449c3ca6e24231eb037b7da885ff
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +18,6 @@ public class BoardService {
 	@Autowired
 	BoardRepo boardRepo;
 	
-<<<<<<< HEAD
 	public ArrayList<Board> getAllMasterBoards(int id){
 		ArrayList<Board> ab = new ArrayList<Board>();
 		ArrayList<Board> ret = new ArrayList<Board>();
@@ -47,11 +43,10 @@ public class BoardService {
 		}
 		return ret;
 	}
-=======
+
 	@Autowired
 	SwimlaneRepo swimRepo;
 
->>>>>>> 218ca786a8bf449c3ca6e24231eb037b7da885ff
 	public Board getBoard(int id) {
 		boardRepo.findAll();
 		return boardRepo.findOne(id);

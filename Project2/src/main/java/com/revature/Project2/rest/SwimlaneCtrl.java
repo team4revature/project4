@@ -45,8 +45,13 @@ public class SwimlaneCtrl {
 	}
 	
 	@PostMapping("/swimlane/update")
-	public ResponseEntity<Swimlane> updateSwimlanes(@RequestBody Swimlane swimlane) {
+	public ResponseEntity<Swimlane> updateSwimlane(@RequestBody Swimlane swimlane) {
 		return new ResponseEntity<Swimlane>(swimService.updateSwimlane(swimlane), HttpStatus.OK);
+	}
+	
+	@PostMapping("/swimlane/updateAll")
+	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody List<Swimlane> swimlanes) {
+		return new ResponseEntity<List<Swimlane>>(swimService.updateSwimlanes(swimlanes), HttpStatus.OK);
 	}
 	
 	@PostMapping("/swimlane/delete")

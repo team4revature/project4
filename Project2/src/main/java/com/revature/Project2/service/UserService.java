@@ -32,7 +32,6 @@ public class UserService {
 	
 	public User validateUser(User user) {
 		User retrievedUser = userRepo.findUserByUsername(user.getUsername());
-		System.out.println("Retrieved user: " + retrievedUser);
 		if(retrievedUser == null || !retrievedUser.getPassword().equals(user.getPassword())) {
 			System.out.println("null or passwords don't match");
 			return null;

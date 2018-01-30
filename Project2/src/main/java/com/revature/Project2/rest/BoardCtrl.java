@@ -58,7 +58,6 @@ public class BoardCtrl {
 	
 	@PostMapping("/updateBoard")
 	public ResponseEntity<Board> saveBoard(@RequestBody Board board){
-		System.out.println(board);
 		boardService.createBoard(board);
 		
 		return new ResponseEntity<Board>(board, HttpStatus.ACCEPTED);

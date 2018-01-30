@@ -42,10 +42,7 @@ public class UserCtrl {
 
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody User user) {
-		System.out.println(user);
 		user = userService.validateUser(user);
-		System.out.println(user);
-
 		if (user == null) {
 			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
 		}

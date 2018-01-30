@@ -1,5 +1,7 @@
 package com.revature.Project2.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +51,14 @@ public class SwimlaneService {
 	public Swimlane updateSwimlane(Swimlane swimlane) {
 		System.out.println(swimlane.getStories().size() + ": " + swimlane);
 		return swimRepo.save(swimlane);
+	}
+	
+	public List<Swimlane> updateSwimlanes(List<Swimlane> swimlanes) {
+		for(Swimlane lane : swimlanes) {
+			System.out.println(lane);
+			swimRepo.save(lane);
+		}
+		return swimlanes;
 	}
 	
 	public boolean deleteSwimlane(DeleteDTO dto) {

@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Story;
+import com.revature.Project2.beans.Task;
+import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.TaskDTO;
 import com.revature.Project2.service.StoryService;
 
@@ -29,7 +30,19 @@ public class StoryCtrl {
 	}
 	
 	@PostMapping("/story/addtask")
-	public ResponseEntity<Story> createSwimlane(@RequestBody TaskDTO dto) {
-		return new ResponseEntity<Story>(storyService.addTask(dto), HttpStatus.CREATED);
+	public ResponseEntity<Task> createSwimlane(@RequestBody TaskDTO dto) {
+		return new ResponseEntity<Task>(storyService.addTask(dto), HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/story/removetask")
+	public ResponseEntity removeTask(@RequestBody DeleteDTO dto) {
+		storyService.removeTask(dto);
+		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	@PostMapping("/story/delete")
+	public ResponseEntity deleteSwimlane(@RequestBody Story story) {
+		storyService.deleteStory(story);
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

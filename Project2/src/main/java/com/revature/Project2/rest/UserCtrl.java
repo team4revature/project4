@@ -1,6 +1,7 @@
 package com.revature.Project2.rest;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,41 +19,40 @@ import com.revature.Project2.service.UserService;
 @RestController
 @CrossOrigin(origins = "*")
 public class UserCtrl {
-	
+
 	@Autowired
 	private UserService userService;
-	
-	
+
 	@GetMapping("/user/{id}")
 	public User getUser(@PathVariable int id) {
-		
+
 		return userService.getUser(id);
-		
+
 	}
-	
+
 	@GetMapping("/userName/{userName}")
 	public User getUser(@PathVariable String userName) {
 		return userService.getUserByName(userName);
 	}
-	
+
 	@PostMapping("/createUser")
 	public ResponseEntity<User> createUser(@RequestBody User user) {
 		user = userService.createUser(user);
 		return new ResponseEntity<User>(user, HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody User user) {
 		
 		//System.out.println("session is currently " + session.getId());
 		//System.out.println(user);
 		user = userService.validateUser(user);
-		//System.out.println(user);
-		
-		if(user == null) {
+
+		if (user == null) {
+
 			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
 		}
-		
+
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
@@ -66,4 +66,12 @@ public class UserCtrl {
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+
+	@GetMapping("/getAllUsers")
+	public List<User> getAllUsers() {
+
+		return userService.getAllUsers();
+
+	}
+
 }

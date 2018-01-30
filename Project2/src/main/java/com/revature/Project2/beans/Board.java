@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name="SCRUM_BOARD")
+
 public class Board implements Serializable {
 	
 	/**
@@ -40,25 +41,19 @@ public class Board implements Serializable {
 
 	@Id
 	@Column(name="B_ID")
+	@OrderColumn
 	@SequenceGenerator(sequenceName="BOARD_SEQ", name="BOARD_SEQ")
 	@GeneratedValue(generator="BOARD_SEQ", strategy=GenerationType.SEQUENCE)
 	private int bid;
-	
+
 	@Column(name="BOARD_NAME", unique=true)
 	private String boardName;
-	
-	public String getBoardName() {
-		return boardName;
-	}
-
-	public void setBoardName(String boardName) {
-		this.boardName = boardName;
-	}
 
 	//swimlanes
 	@OneToMany(fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
+	@JoinColumn(name="B_ID")
 	@OrderColumn
 	private List<Swimlane> swimlanes;
 
@@ -86,8 +81,7 @@ public class Board implements Serializable {
 	//@LazyCollection(LazyCollectionOption.FALSE)
 
 	@OneToMany(fetch=FetchType.LAZY,
-			cascade = CascadeType.ALL,
-			orphanRemoval = true)
+			cascade = CascadeType.ALL)
 	private List<History> burnDown;
 	
 	public Board() {
@@ -116,13 +110,6 @@ public class Board implements Serializable {
 		this.scrumTeam = scrumTeam;
 	}
 
-	public List<History> getBurnDown() {
-		return burnDown;
-	}
-
-	public void setBurnDown(List<History> burnDown) {
-		this.burnDown = burnDown;
-	}
 
 	public int getBid() {
 		return bid;
@@ -130,6 +117,14 @@ public class Board implements Serializable {
 
 	public void setBid(int bid) {
 		this.bid = bid;
+	}
+	
+	public String getBoardName() {
+		return boardName;
+	}
+
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
 	}
 
 	public User getScrumMaster() {
@@ -163,10 +158,20 @@ public class Board implements Serializable {
 	public void setScrumTeam(List<User> scrumTeam) {
 		this.scrumTeam = scrumTeam;
 	}
+	
+	public List<History> getBurnDown() {
+		return burnDown;
+	}
 
+	public void setBurnDown(List<History> burnDown) {
+		this.burnDown = burnDown;
+	}
 
 	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Board [bid=" + bid + ", boardName=" + boardName + ", swimlanes=" + swimlanes + ", scrumMaster="
+				+ scrumMaster + ", scrumProductOwner=" + scrumProductOwner + ", scrumTeam=" + scrumTeam + ", burnDown="
+				+ burnDown + "]";
+	}
 }

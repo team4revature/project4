@@ -1,14 +1,16 @@
 package com.revature.Project2.service;
 
-import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.Project2.beans.History;
+import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Story;
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
+import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
 
 @Service
@@ -16,6 +18,9 @@ public class SwimlaneService {
 	
 	@Autowired
 	SwimlaneRepo swimRepo;
+	
+	@Autowired
+	BoardRepo boardRepo;
 	
 	public Swimlane getSwimlane(int id) {
 		
@@ -35,8 +40,32 @@ public class SwimlaneService {
 		return swimlane.getStories().get(swimlane.getStories().size() - 1);
 	}
 	
-	public boolean deleteSwimlane(int swimlaneId) {
-		swimRepo.delete(swimlaneId);
+	public boolean removeStory(DeleteDTO dto) {
+		Swimlane swimlane = swimRepo.findOne(dto.getObjectId());
+		swimlane.getStories().remove(dto.getIndex());
+		swimRepo.save(swimlane);
+	
+		return true;
+	}
+	
+	public Swimlane updateSwimlane(Swimlane swimlane) {
+		System.out.println(swimlane.getStories().size() + ": " + swimlane);
+		return swimRepo.save(swimlane);
+	}
+	
+	public List<Swimlane> updateSwimlanes(List<Swimlane> swimlanes) {
+		for(Swimlane lane : swimlanes) {
+			System.out.println(lane);
+			swimRepo.save(lane);
+		}
+		return swimlanes;
+	}
+	
+	public boolean deleteSwimlane(DeleteDTO dto) {
+		Board board = boardRepo.findOne(dto.getObjectId());
+		board.getSwimlanes().remove(dto.getIndex());
+		boardRepo.save(board);
+	
 		return true;
 	}
 }

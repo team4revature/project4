@@ -41,7 +41,6 @@ public class BoardCtrl {
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
 		User userd = userService.getUser(id);
-		System.out.println("boards" + userd.getBoards().size());
 		return userd.getBoards();
 	}
 	
@@ -61,9 +60,7 @@ public class BoardCtrl {
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
 		boardService.createBoard(board);
 		User u = userService.getUser(board.getScrumMaster().getUid());
-		System.out.println("before" + u.getBoards().size());
 		u.getBoards().add(board);
-		System.out.println("after" + u.getBoards().size());
 		userService.createUser(u);	
 		
 		
@@ -80,7 +77,6 @@ public class BoardCtrl {
 	
 	@PostMapping("/board/addswimlane")
 	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
-		System.out.println("in add swimlane " + dto);
 		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
 	}
 	

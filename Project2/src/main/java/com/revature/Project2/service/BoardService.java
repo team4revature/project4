@@ -48,7 +48,6 @@ public class BoardService {
 	SwimlaneRepo swimRepo;
 
 	public Board getBoard(int id) {
-		boardRepo.findAll();
 		return boardRepo.findOne(id);
 	}
 	

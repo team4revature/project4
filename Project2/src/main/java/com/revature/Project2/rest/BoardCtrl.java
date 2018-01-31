@@ -21,65 +21,78 @@ import com.revature.Project2.service.BoardService;
 import com.revature.Project2.service.UserService;
 
 @RestController
-//requestmapping board
+// requestmapping board
 @CrossOrigin(origins = "*")
 public class BoardCtrl {
-	
+
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/board/{id}")
 	public Board getBoard(@PathVariable int id) {
 		Board board = boardService.getBoard(id);
-	
+
 		return board;
 	}
-	
+
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
 		User userd = userService.getUser(id);
 		return userd.getBoards();
 	}
-	
+
 	@GetMapping("/getMasterBoards/{id}")
 	public List<Board> getMasterBoards(@PathVariable int id) {
-		ArrayList<Board> boards = boardService.getAllMasterBoards(id);
-		return boards;
+		User u = userService.getUser(id);
+		List<Board> b = new ArrayList<Board>();
+		for (int i = 0; i < u.getBoards().size(); i++) {
+			if (u.getBoards().get(i).getScrumMaster().getUid() == id) {
+				b.add(u.getBoards().get(i));
+			}
+		}
+		return b;
 	}
-	
+
 	@GetMapping("/getMemberBoards/{id}")
 	public List<Board> getAssBoards(@PathVariable int id) {
-		ArrayList<Board> boards = boardService.getAllMemberBoards(id);
-		return boards;
+		User u = userService.getUser(id);
+		List<Board> b = new ArrayList<Board>();
+		for (int i = 0; i < u.getBoards().size(); i++) {
+			for (int j = 0; i < u.getBoards().get(i).getScrumTeam().size(); j++) {
+				if (u.getBoards().get(i).getScrumTeam().get(j).getUid() == id) {
+					b.add(u.getBoards().get(i));
+
+				}
+			}
+		}
+		return b;
 	}
-	
+
 	@PostMapping("/createBoard")
-	public ResponseEntity<Board> createBoard(@RequestBody Board board){
+	public ResponseEntity<Board> createBoard(@RequestBody Board board) {
 		boardService.createBoard(board);
 		User u = userService.getUser(board.getScrumMaster().getUid());
 		u.getBoards().add(board);
-		userService.createUser(u);	
-		
-		
+		userService.createUser(u);
+
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("/updateBoard")
-	public ResponseEntity<Board> saveBoard(@RequestBody Board board){
-		boardService.createBoard(board);
-		
+	public ResponseEntity<Board> saveBoard(@RequestBody Board board) {
+		// boardService.createBoard(board);
 		return new ResponseEntity<Board>(board, HttpStatus.ACCEPTED);
-		
+
 	}
-	
+
 	@PostMapping("/board/addswimlane")
 	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
 		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("/board/updateswimlanes")
 	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody Board board) {
 		return new ResponseEntity<List<Swimlane>>(boardService.updateSwimlanes(board), HttpStatus.OK);

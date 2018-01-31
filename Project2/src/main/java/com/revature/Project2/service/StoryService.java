@@ -28,11 +28,10 @@ public class StoryService {
 	}
 	
 	public Task addTask(TaskDTO dto) {
-		System.out.println(dto);
+	
 		Story story = storyRepo.findOne(dto.getStoryId());
 		story.getTasks().add(dto.getTask());
 		story = storyRepo.save(story);
-		System.out.println(story.getTasks().get(story.getTasks().size() - 1));
 		return story.getTasks().get(story.getTasks().size() - 1);
 	}
 	
@@ -45,8 +44,7 @@ public class StoryService {
 	}
 	
 	public boolean deleteStory(Story story) {
-		System.out.println(story);
-		System.out.println(storyRepo.exists(story.getStId()));
+		
 		storyRepo.delete(story.getStId());
 		return true;
 	}

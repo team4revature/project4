@@ -64,6 +64,7 @@ public class Board implements Serializable {
 	//list of all team members
 
 	@JsonIgnoreProperties({"boards"})
+	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="TEAM_MEMBER",
 			joinColumns= @JoinColumn(name="BOARD_ID"),

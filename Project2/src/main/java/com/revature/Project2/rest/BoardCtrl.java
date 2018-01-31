@@ -104,7 +104,7 @@ public class BoardCtrl {
 		System.out.println(dto.getBid() +" " + dto.getUid());
 		boardService.addUsers(dto);
 		
-		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/board/addswimlane") //COME BACK HERE--------------------------------------------

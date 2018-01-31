@@ -83,6 +83,7 @@ public class BoardService {
 	public void addUsers(AddUserDTO dto) {
 		Board board = boardRepo.findOne(dto.getBid());
 		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
+		boardRepo.save(board);
 		
 	}
 	

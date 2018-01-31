@@ -14,9 +14,11 @@ import com.revature.Project2.beans.User;
 
 
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.AddUserDTO;
 import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
+import com.revature.Project2.repository.UserRepo;
 
 @Service
 public class BoardService {
@@ -27,7 +29,9 @@ public class BoardService {
 	@Autowired 
 	HttpSession session;
 	
-
+	@Autowired
+	UserRepo userRepo;
+	
 	public ArrayList<Board> getAllMasterBoards(int id){
 		ArrayList<Board> ab = new ArrayList<Board>();
 		ArrayList<Board> ret = new ArrayList<Board>();
@@ -58,13 +62,11 @@ public class BoardService {
 	SwimlaneRepo swimRepo;
 
 	public Board getBoard(int id) {
-
-		boardRepo.findAll();
+		
 		return boardRepo.findOne(id);
 	}
 	
 	public Board createBoard(Board board) {
-		
 		return boardRepo.save(board);
 	}
 	
@@ -78,6 +80,12 @@ public class BoardService {
 		return boardRepo.findOne(id).getBurnDown();
 	}
 
+	public void addUsers(AddUserDTO dto) {
+		Board board = boardRepo.findOne(dto.getBid());
+		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
+		
+	}
+	
 	public Board addSwimlane(SwimlaneDTO dto) {
 		Board board = boardRepo.findOne(dto.getBoardId());
 		dto.getSwimlane().setBid(dto.getBoardId()); // see if it works here

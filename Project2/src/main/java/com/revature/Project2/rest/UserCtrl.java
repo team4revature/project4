@@ -43,9 +43,7 @@ public class UserCtrl {
 
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody User user) {
-		
-		//System.out.println("session is currently " + session.getId());
-		//System.out.println(user);
+
 		user = userService.validateUser(user);
 
 		if (user == null) {

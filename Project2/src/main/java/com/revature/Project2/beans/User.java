@@ -53,7 +53,6 @@ public class User implements Serializable {
 	joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "U_ID"), 
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID", 
 	referencedColumnName = "B_ID"))
-	@OrderColumn
 	private List<Board> boards;
 	
 	//list of stories the user is working on

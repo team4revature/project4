@@ -29,6 +29,7 @@ import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.beans.User;
 import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.beans.User;
+import com.revature.Project2.dto.AddUserDTO;
 import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.service.BoardService;
 import com.revature.Project2.service.UserService;
@@ -54,7 +55,6 @@ public class BoardCtrl {
 	@GetMapping("/getboards/{id}")
 	public List<Board> getBoards(@PathVariable int id) {
 		User userd = userService.getUser(id);
-		System.out.println("boards" + userd.getBoards().size());
 		return userd.getBoards();
 	}
 	
@@ -74,11 +74,8 @@ public class BoardCtrl {
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
 		boardService.createBoard(board);
 		User u = userService.getUser(board.getScrumMaster().getUid());
-		System.out.println("before" + u.getBoards().size());
 		u.getBoards().add(board);
-		System.out.println("after" + u.getBoards().size());
 		userService.createUser(u);	
-		
 		
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
@@ -103,17 +100,15 @@ public class BoardCtrl {
 	
 
 	@PostMapping("/updateBoard")
-	public ResponseEntity<Board> saveBoard(@RequestBody Board board){
-		System.out.println(board);
-		boardService.createBoard(board);
+	public ResponseEntity saveBoard(@RequestBody AddUserDTO dto) {
+		System.out.println(dto.getBid() +" " + dto.getUid());
+		boardService.addUsers(dto);
 		
-		return new ResponseEntity<Board>(board, HttpStatus.ACCEPTED);
-		
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/board/addswimlane") //COME BACK HERE--------------------------------------------
 	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
-		System.out.println("in add swimlane " + dto);
 		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
 	}
 	

@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -50,24 +51,18 @@ public class Board implements Serializable {
 	@OrderColumn
 	private List<Swimlane> swimlanes;
 
-	@JsonIgnoreProperties ( { "boards"} )
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="SCRUM_MASTER")
-	private User scrumMaster;
 	
-	@JsonIgnoreProperties ( { "boards"} )
+	
+	private int scrumMaster;
+	
+
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="SCRUM_PRODUCT_OWNER")
 	private User scrumProductOwner;
 	
 	//list of all team members
-
-	@JsonIgnoreProperties({"boards"})
 	
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="TEAM_MEMBER",
-			joinColumns= @JoinColumn(name="BOARD_ID"),
-			inverseJoinColumns= @JoinColumn(name="USER_ID"))
+	@OneToMany
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
@@ -79,7 +74,7 @@ public class Board implements Serializable {
 		super();
 	}
 	
-	public Board(int bid, String boardName, List<Swimlane> swimlanes, User scrumMaster, User scrumProductOwner, List<User> scrumTeam,
+	public Board(int bid, String boardName, List<Swimlane> swimlanes, int scrumMaster, User scrumProductOwner, List<User> scrumTeam,
 			List<History> burnDown) {
 		super();
 		this.bid = bid;
@@ -91,7 +86,7 @@ public class Board implements Serializable {
 		this.burnDown = burnDown;
 	}
 
-	public Board(String boardName, List<Swimlane> swimlanes, User scrumMaster, User scrumProductOwner, List<User> scrumTeam,
+	public Board(String boardName, List<Swimlane> swimlanes, int scrumMaster, User scrumProductOwner, List<User> scrumTeam,
 			Map<Date, Integer> burnDown) {
 		super();
 		this.boardName = boardName;
@@ -117,11 +112,11 @@ public class Board implements Serializable {
 		this.boardName = boardName;
 	}
 
-	public User getScrumMaster() {
+	public int getScrumMaster() {
 		return scrumMaster;
 	}
 
-	public void setScrumMaster(User scrumMaster) {
+	public void setScrumMaster(int scrumMaster) {
 		this.scrumMaster = scrumMaster;
 	}
 

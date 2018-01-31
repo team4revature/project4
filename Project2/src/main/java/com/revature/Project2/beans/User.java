@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -48,17 +49,9 @@ public class User implements Serializable {
 	private String email;
 	
 	//list of all boards the user contributes to
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name = "TEAM_MEMBER", 
-	joinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "U_ID"), 
-	inverseJoinColumns = @JoinColumn(name = "BOARD_ID", 
-	referencedColumnName = "B_ID"))
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<Board> boards;
-	
-	//list of stories the user is working on
-//	@OneToMany(fetch=FetchType.EAGER)
-//	private List<Story> stories;
-	
+
 	
 	public int getUid() {
 		return uid;

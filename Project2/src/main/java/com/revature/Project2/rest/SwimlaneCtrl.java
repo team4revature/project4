@@ -1,5 +1,7 @@
 package com.revature.Project2.rest;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.revature.Project2.beans.Board;
+import com.revature.Project2.beans.History;
 import com.revature.Project2.beans.Story;
 import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
+import com.revature.Project2.service.HistoryService;
 import com.revature.Project2.service.SwimlaneService;
 
 @RestController
@@ -25,6 +28,11 @@ public class SwimlaneCtrl {
 	
 	@Autowired
 	SwimlaneService swimService;
+	
+	@Autowired
+	HistoryService histService;
+	
+	private boolean canExecute = true;
 	
 	@GetMapping("/swimlane/{id}")
 	public Swimlane getSwimlane(@PathVariable int id) {
@@ -40,8 +48,37 @@ public class SwimlaneCtrl {
 	
 	@PostMapping("/swimlane/removestory")
 	public ResponseEntity removeStory(@RequestBody DeleteDTO dto) {
+		
+		System.out.println("Before history ------------------------------");
+		Swimlane swimlane = swimService.getSwimlane(dto.getObjectId());
+		int difficulty = (swimlane.getStories().get(dto.getIndex()).getDifficulty());
+		if(canExecute) {
+			this.updateHistory(swimlane, difficulty);
+		}
+		System.out.println("After history -------------------------------");
+		/*
+		List<History> history = histRepo.findHistoryByBid(swimlane.getBid());
+		//System.out.println("history is " + history);
+		history.sort(Comparator.comparing(History::getHid));
+		int value = history.get(history.size() - 1).getValue();
+		History hist = new History(new Date(),( value - 
+			(swimlane.getStories().get(dto.getIndex()).getDifficulty())), swimlane.getBid());
+		histRepo.save(hist);
+		*/
 		swimService.removeStory(dto);
+		this.canExecute = true;
 		return new ResponseEntity(HttpStatus.OK);
+	}
+	
+	private void updateHistory(Swimlane swimlane, int difficulty) {
+		System.out.println("apparently I can execute");
+		this.canExecute = false;
+		List <History> history = histService.getHistoryByBid(swimlane.getBid());
+		history.sort(Comparator.comparing(History::getHid));
+		int value = history.get(history.size() - 1).getValue();
+		History hist = new History(new Date(),( value - difficulty), swimlane.getBid());
+		histService.createHistory(hist);
+		
 	}
 	
 	@PostMapping("/swimlane/update")

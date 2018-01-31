@@ -80,6 +80,7 @@ public class BoardService {
 
 	public Board addSwimlane(SwimlaneDTO dto) {
 		Board board = boardRepo.findOne(dto.getBoardId());
+		dto.getSwimlane().setBid(dto.getBoardId()); // see if it works here
 		board.getSwimlanes().add(dto.getSwimlane());
 		return boardRepo.save(board);
 	}

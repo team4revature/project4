@@ -34,6 +34,8 @@ public class History implements Serializable {
 	
 	@Column(name="VALUE")
 	private int value;
+	
+	private int bid;
 
 	public int getHid() {
 		return hid;
@@ -94,10 +96,23 @@ public class History implements Serializable {
 	public History( Date key, int value) {
 		super();
 		this.key = key;
-		this.value = value;
-		
-		
+		this.value = value;	
 	}
+	
+	public History(Date key, int value, int bid) {
+		super();
+		this.key = key;
+		this.value = value;
+		this.bid = bid;
+	}
+	
+//	public History(int hid, Date key, int value, int bid) {
+//		super();
+//		this.hid = hid;
+//		this.key = key;
+//		this.value = value;
+//		this.bid = bid;
+//	}
 	
 	public History() {
 		
@@ -106,6 +121,14 @@ public class History implements Serializable {
 	@Override
 	public String toString() {
 		return "History [hid=" + hid + ", key=" + key + ", value=" + value + "]";
+	}
+
+	public int getBid() {
+		return bid;
+	}
+
+	public void setBid(int bid) {
+		this.bid = bid;
 	}
 	
 	

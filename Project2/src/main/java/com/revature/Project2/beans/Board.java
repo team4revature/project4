@@ -82,6 +82,7 @@ public class Board implements Serializable {
 
 	@OneToMany(fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL)
+	@JoinColumn(name = "bid")
 	private List<History> burnDown;
 	
 	public Board() {

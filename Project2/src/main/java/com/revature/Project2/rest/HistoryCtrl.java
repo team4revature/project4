@@ -1,6 +1,7 @@
 package com.revature.Project2.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import com.revature.Project2.dto.HistoryDto;
 import com.revature.Project2.service.HistoryService;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class HistoryCtrl {
 	
 	@Autowired
@@ -26,6 +28,8 @@ public class HistoryCtrl {
 	@PostMapping("/createHistory")
 	public History createHistory(@RequestBody History history) {
 		
+		System.out.println("hit create history");
+		System.out.println("The value of history is " + history);
 		history = historyService.createHistory(history);
 		return history;
 		

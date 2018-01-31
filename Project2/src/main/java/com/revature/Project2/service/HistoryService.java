@@ -1,6 +1,8 @@
 package com.revature.Project2.service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,12 @@ public class HistoryService {
 
 	}
 	
+	public List<History> getHistoryByBid(int bid){
+		return historyRepo.findHistoryByBid(bid);
+	}
+	
 	public History createHistory(History history) {
-
+		history.setKey(new Date());
 		history = historyRepo.save(history);
 //		System.out.println("" + history.getKey());
 //		System.out.println("" + sf.format(history.getKey()));

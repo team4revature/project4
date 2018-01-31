@@ -35,7 +35,6 @@ public class Board implements Serializable {
 
 	@Id
 	@Column(name="B_ID")
-	@OrderColumn
 	@SequenceGenerator(sequenceName="BOARD_SEQ", name="BOARD_SEQ")
 	@GeneratedValue(generator="BOARD_SEQ", strategy=GenerationType.SEQUENCE)
 	private int bid;

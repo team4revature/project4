@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.beans.User;
+import com.revature.Project2.dto.AddUserDTO;
 import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.service.BoardService;
 import com.revature.Project2.service.UserService;
@@ -63,16 +64,15 @@ public class BoardCtrl {
 		u.getBoards().add(board);
 		userService.createUser(u);	
 		
-		
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/updateBoard")
-	public ResponseEntity<Board> saveBoard(@RequestBody Board board){
-		boardService.createBoard(board);
+	public ResponseEntity saveBoard(@RequestBody AddUserDTO dto) {
+		System.out.println(dto.getBid() +" " + dto.getUid());
+		boardService.addUsers(dto);
 		
-		return new ResponseEntity<Board>(board, HttpStatus.ACCEPTED);
-		
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/board/addswimlane")

@@ -8,15 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Swimlane;
+import com.revature.Project2.dto.AddUserDTO;
 import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
+import com.revature.Project2.repository.UserRepo;
 
 @Service
 public class BoardService {
 	
 	@Autowired
 	BoardRepo boardRepo;
+	
+	@Autowired
+	UserRepo userRepo;
 	
 	public ArrayList<Board> getAllMasterBoards(int id){
 		ArrayList<Board> ab = new ArrayList<Board>();
@@ -52,8 +57,13 @@ public class BoardService {
 	}
 	
 	public Board createBoard(Board board) {
-		
 		return boardRepo.save(board);
+	}
+	
+	public void addUsers(AddUserDTO dto) {
+		Board board = boardRepo.findOne(dto.getBid());
+		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
+		
 	}
 	
 	public Board addSwimlane(SwimlaneDTO dto) {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.Project2.beans.Board;
 import com.revature.Project2.beans.Swimlane;
-import com.revature.Project2.beans.User;
+import com.revature.Project2.dto.AddUserDTO;
 import com.revature.Project2.dto.SwimlaneDTO;
 import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
@@ -19,11 +19,20 @@ public class BoardService {
 	
 	@Autowired
 	BoardRepo boardRepo;
-	@Autowired 
+	
+	@Autowired
 	UserRepo userRepo;
-	public List<Board> getAllMasterBoards(int id){
-		User u = userRepo.findOne(id);
-		return (List<Board>) u.getBoards();
+	
+	public ArrayList<Board> getAllMasterBoards(int id){
+		ArrayList<Board> ab = new ArrayList<Board>();
+		ArrayList<Board> ret = new ArrayList<Board>();
+		ab=(ArrayList<Board>) boardRepo.findAll();
+		for(int i = 0;i< ab.size();i++) {
+			if(ab.get(i).getScrumMaster().getUid() == id) {
+				ret.add(ab.get(i));
+			}
+		}
+		return ret;
 	}
 	
 	public ArrayList<Board> getAllMemberBoards(int id){
@@ -48,8 +57,14 @@ public class BoardService {
 	}
 	
 	public Board createBoard(Board board) {
-		
 		return boardRepo.save(board);
+	}
+	
+	public void addUsers(AddUserDTO dto) {
+		Board board = boardRepo.findOne(dto.getBid());
+		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
+		boardRepo.save(board);
+		
 	}
 	
 	public Board addSwimlane(SwimlaneDTO dto) {

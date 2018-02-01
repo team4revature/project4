@@ -59,19 +59,36 @@ public class BoardCtrl {
 	}
 	
 	@GetMapping("/getMasterBoards/{id}")
-	public List<Board> getMasterBoards(@PathVariable int id) {
-		ArrayList<Board> boards = boardService.getAllMasterBoards(id);
-		return boards;
-	}
-	
-	@GetMapping("/getMemberBoards/{id}")
-	public List<Board> getAssBoards(@PathVariable int id) {
-		ArrayList<Board> boards = boardService.getAllMemberBoards(id);
-		return boards;
-	}
+    public List<Board> getMasterBoards(@PathVariable int id) {
+        User u = userService.getUser(id);
+        List<Board> b = new ArrayList<Board>();
+        for (int i = 0; i < u.getBoards().size(); i++) {
+            if (u.getBoards().get(i).getScrumMaster().getUid() == id) {
+                b.add(u.getBoards().get(i));
+            }
+        }
+        return b;
+    }
+
+    @GetMapping("/getMemberBoards/{id}")
+    public List<Board> getAssBoards(@PathVariable int id) {
+       /* User u = userService.getUser(id);
+        List<Board> b = new ArrayList<Board>();
+        b=boardService.
+        for (int i = 0; i < u.getBoards().size(); i++) {
+            for (int j = 0; i < u.getBoards().get(i).getScrumTeam().size(); j++) {
+                if (u.getBoards().get(i).getScrumTeam().get(j).getUid() == id) {
+                    b.add(u.getBoards().get(i));
+
+                }
+            }
+        }*/
+        return boardService.getAllMemberBoards(id);
+    }
 	
 	@PostMapping("/createBoard")
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
+		System.out.println("in create board");
 		boardService.createBoard(board);
 		User u = userService.getUser(board.getScrumMaster().getUid());
 		u.getBoards().add(board);
@@ -101,7 +118,6 @@ public class BoardCtrl {
 
 	@PostMapping("/updateBoard")
 	public ResponseEntity saveBoard(@RequestBody AddUserDTO dto) {
-		System.out.println(dto.getBid() +" " + dto.getUid());
 		boardService.addUsers(dto);
 		
 		return new ResponseEntity(HttpStatus.ACCEPTED);

@@ -20,12 +20,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -54,6 +54,7 @@ public class Board implements Serializable {
 			orphanRemoval = true)
 	@JoinColumn(name="B_ID")
 	@OrderColumn
+	@Fetch(FetchMode.SELECT)
 	private List<Swimlane> swimlanes;
 
 	@JsonIgnoreProperties ( { "boards"} )

@@ -37,7 +37,7 @@ public class BoardService {
 		ArrayList<Board> ret = new ArrayList<Board>();
 		ab=(ArrayList<Board>) boardRepo.findAll();
 		for(int i = 0;i< ab.size();i++) {
-			if(ab.get(i).getScrumMaster().getUid() == id) {
+			if(ab.get(i).getScrumMaster().getUid()== id) {
 				ret.add(ab.get(i));
 			}
 		}
@@ -47,6 +47,7 @@ public class BoardService {
 	public ArrayList<Board> getAllMemberBoards(int id){
 		ArrayList<Board> ab = new ArrayList<Board>();
 		ArrayList<Board> ret = new ArrayList<Board>();
+		//List<Board> b = (List<Board>) boardRepo.findAll();
 		ab=(ArrayList<Board>) boardRepo.findAll();
 		for(int i = 0;i< ab.size();i++) {
 			for(int j = 0; j< ab.get(i).getScrumTeam().size();j++) {
@@ -84,7 +85,6 @@ public class BoardService {
 		Board board = boardRepo.findOne(dto.getBid());
 		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
 		boardRepo.save(board);
-		
 	}
 	
 	public Board addSwimlane(SwimlaneDTO dto) {

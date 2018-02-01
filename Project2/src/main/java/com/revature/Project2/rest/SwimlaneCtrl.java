@@ -49,13 +49,13 @@ public class SwimlaneCtrl {
 	@PostMapping("/swimlane/removestory")
 	public ResponseEntity removeStory(@RequestBody DeleteDTO dto) {
 		
-		System.out.println("Before history ------------------------------");
+		//added functionality of history for burndown
 		Swimlane swimlane = swimService.getSwimlane(dto.getObjectId());
 		int difficulty = (swimlane.getStories().get(dto.getIndex()).getDifficulty());
 		if(canExecute) {
 			this.updateHistory(swimlane, difficulty);
 		}
-		System.out.println("After history -------------------------------");
+		
 		swimService.removeStory(dto);
 		this.canExecute = true;
 		return new ResponseEntity(HttpStatus.OK);

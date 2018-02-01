@@ -72,13 +72,6 @@ public class History implements Serializable {
 	public void setValue(int value) {
 		this.value = value;
 	}
-
-//	public History(int hid, Date key, int value) {
-//		super();
-//		this.hid = hid;
-//		this.key = key;
-//		this.value = value;
-//	}
 	
 	public History(int hid, String key, int value) {
 		super();
@@ -104,19 +97,9 @@ public class History implements Serializable {
 		this.key = key;
 		this.value = value;
 		this.bid = bid;
-	}
-	
-//	public History(int hid, Date key, int value, int bid) {
-//		super();
-//		this.hid = hid;
-//		this.key = key;
-//		this.value = value;
-//		this.bid = bid;
-//	}
-	
-	public History() {
-		
-	}
+	}	
+
+	public History() { }
 
 	@Override
 	public String toString() {

@@ -54,12 +54,7 @@ public class User implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID", 
 	referencedColumnName = "B_ID"))
 	private List<Board> boards;
-	
-	//list of stories the user is working on
-//	@OneToMany(fetch=FetchType.EAGER)
-//	private List<Story> stories;
-	
-	
+
 	public int getUid() {
 		return uid;
 	}

@@ -15,6 +15,7 @@ import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.repository.BoardRepo;
 import com.revature.Project2.repository.HistoryRepo;
+import com.revature.Project2.repository.StoryRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
 
 @Service
@@ -31,6 +32,10 @@ public class SwimlaneService {
 	
 	@Autowired
 	HistoryService histServ;
+	
+	@Autowired
+	StoryRepo storyRepo;
+
 	
 	public Swimlane getSwimlane(int id) {
 		
@@ -52,42 +57,6 @@ public class SwimlaneService {
 	
 	public boolean removeStory(DeleteDTO dto) {
 		Swimlane swimlane = swimRepo.findOne(dto.getObjectId());
-		
-		System.out.println("removing story");
-		//David Graves
-		
-		//System.out.println("history is now " + histRepo.findHistoryByBid(swimlane.getBid()));
-		
-//		history = histRepo.findHistoryByBid(swimlane.getBid());
-//		history.sort(Comparator.comparing(History::getHid));
-		
-//		System.out.println("history " + history);
-//			if(history.get(history.size() - 1).getValue() != //if the last two values are not equal to previous minus last
-//					(history.get(history.size() - 2).getValue() -
-//					(swimlane.getStories().get(dto.getIndex()).getDifficulty()))) {
-//				if(history.get(history.size() - 2).getValue() != //if the next to last are not equal to previous minus last
-//						(history.get(history.size() - 3).getValue() -
-//						(swimlane.getStories().get(dto.getIndex()).getDifficulty()))) {
-//					//then delete next to last
-//					histRepo.delete(history.get(history.size() - 2));
-//					System.out.println("history if " + history);
-//				}
-//				else {
-//					//otherwise delete last
-//					histRepo.delete(history.get(history.size() - 1));
-//					System.out.println("history else" + history);
-//				}
-//			}
-		
-//		List<History> history = board.getBurnDown();
-//		board.getBurnDown().sort(Comparator.comparing(History::getKey));
-//		History lastIndex = history.get(history.size() - 1);
-//		board.getBurnDown().add(new History(new Date(), 
-//				((board.getBurnDown().get(board.getBurnDown().size() - 1)).getValue() - 
-//				(swimlane.getStories().get(dto.getIndex()).getDifficulty())), 
-//				(board.getBurnDown().get(board.getBurnDown().size() - 1)).getBid()));
-		//histRepo.save(newHist);
-		
 		swimlane.getStories().remove(dto.getIndex());
 		swimRepo.save(swimlane);
 	

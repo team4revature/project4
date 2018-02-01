@@ -3,10 +3,16 @@ package com.revature.Project2.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.Project2.beans.Board;
+import com.revature.Project2.beans.History;
+import com.revature.Project2.beans.User;
+
+
 import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.dto.AddUserDTO;
 import com.revature.Project2.dto.SwimlaneDTO;
@@ -19,6 +25,9 @@ public class BoardService {
 	
 	@Autowired
 	BoardRepo boardRepo;
+	
+	@Autowired 
+	HttpSession session;
 	
 	@Autowired
 	UserRepo userRepo;
@@ -54,6 +63,7 @@ public class BoardService {
 	SwimlaneRepo swimRepo;
 
 	public Board getBoard(int id) {
+		
 		return boardRepo.findOne(id);
 	}
 	
@@ -61,6 +71,16 @@ public class BoardService {
 		return boardRepo.save(board);
 	}
 	
+
+	public List<History> getBurndown(int id) {
+		
+//		User user = (User)session.getAttribute("user");
+//		System.out.println(user.getUid() + "");
+//		
+		
+		return boardRepo.findOne(id).getBurnDown();
+	}
+
 	public void addUsers(AddUserDTO dto) {
 		Board board = boardRepo.findOne(dto.getBid());
 		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
@@ -69,6 +89,7 @@ public class BoardService {
 	
 	public Board addSwimlane(SwimlaneDTO dto) {
 		Board board = boardRepo.findOne(dto.getBoardId());
+		dto.getSwimlane().setBid(dto.getBoardId()); // see if it works here
 		board.getSwimlanes().add(dto.getSwimlane());
 		return boardRepo.save(board);
 	}
@@ -78,5 +99,9 @@ public class BoardService {
 		//swimRepo.delete(myBoard.getSwimlanes());
 		//myBoard.setSwimlanes(board.getSwimlanes());
 		return boardRepo.save(board).getSwimlanes();
+	}
+	
+	public List<History> updateHistory(Board board){
+		return boardRepo.save(board).getBurnDown();
 	}
 }

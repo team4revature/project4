@@ -38,14 +38,6 @@ public class Swimlane {
 	@OrderColumn
 	private List<Story> stories;
 	
-	public int getBid() {
-		return bid;
-	}
-
-	public void setBid(int bid) {
-		this.bid = bid;
-	}
-
 	public int getSid() {
 		return sid;
 	}

@@ -49,7 +49,7 @@ public class Board implements Serializable {
 	private String boardName;
 
 	//swimlanes
-	@OneToMany(fetch=FetchType.LAZY,
+	@OneToMany(fetch=FetchType.EAGER,
 			cascade = CascadeType.ALL,
 			orphanRemoval = true)
 	@JoinColumn(name="B_ID")

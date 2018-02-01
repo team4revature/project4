@@ -65,7 +65,6 @@ public class BoardService {
 		Board board = boardRepo.findOne(dto.getBid());
 		board.getScrumTeam().add(userRepo.findOne(dto.getUid()));
 		boardRepo.save(board);
-		
 	}
 	
 	public Board addSwimlane(SwimlaneDTO dto) {

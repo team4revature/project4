@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +34,8 @@ public class History implements Serializable {
 	
 	@Column(name="VALUE")
 	private int value;
+	
+	private int bid;
 
 	public int getHid() {
 		return hid;
@@ -45,9 +48,21 @@ public class History implements Serializable {
 	public Date getKey() {
 		return key;
 	}
-
+	
 	public void setKey(Date key) {
-		this.key = key;
+		this.key=key;
+	}
+
+	public void setKey(String key) {
+		try {
+			this.key = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(key);
+			System.out.println(key + " parsed as " + this.key);
+		}
+		catch(ParseException e) {
+			e.printStackTrace();
+			this.key = new Date();
+		}
+		
 	}
 
 	public int getValue() {
@@ -57,19 +72,12 @@ public class History implements Serializable {
 	public void setValue(int value) {
 		this.value = value;
 	}
-
-	public History(int hid, Date key, int value) {
-		super();
-		this.hid = hid;
-		this.key = key;
-		this.value = value;
-	}
 	
 	public History(int hid, String key, int value) {
 		super();
 		this.hid = hid;
 		try {
-			this.key = new SimpleDateFormat("dd/MM/yyyy").parse(key);
+			this.key = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(key);
 		}
 		catch(ParseException e) {
 			e.printStackTrace();
@@ -78,13 +86,32 @@ public class History implements Serializable {
 		this.value = value;
 	}
 	
-	public History() {
-		
+	public History( Date key, int value) {
+		super();
+		this.key = key;
+		this.value = value;	
 	}
+	
+	public History(Date key, int value, int bid) {
+		super();
+		this.key = key;
+		this.value = value;
+		this.bid = bid;
+	}
+
+	public History() { }
 
 	@Override
 	public String toString() {
 		return "History [hid=" + hid + ", key=" + key + ", value=" + value + "]";
+	}
+
+	public int getBid() {
+		return bid;
+	}
+
+	public void setBid(int bid) {
+		this.bid = bid;
 	}
 	
 	

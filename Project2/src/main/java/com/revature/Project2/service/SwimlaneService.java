@@ -11,6 +11,7 @@ import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.dto.DeleteDTO;
 import com.revature.Project2.dto.StoryDTO;
 import com.revature.Project2.repository.BoardRepo;
+import com.revature.Project2.repository.StoryRepo;
 import com.revature.Project2.repository.SwimlaneRepo;
 
 @Service
@@ -21,6 +22,9 @@ public class SwimlaneService {
 	
 	@Autowired
 	BoardRepo boardRepo;
+	
+	@Autowired
+	StoryRepo storyRepo;
 	
 	public Swimlane getSwimlane(int id) {
 		

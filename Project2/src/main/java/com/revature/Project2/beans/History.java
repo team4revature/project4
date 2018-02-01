@@ -97,7 +97,7 @@ public class History implements Serializable {
 		this.key = key;
 		this.value = value;
 		this.bid = bid;
-	}
+	}	
 
 	public History() { }
 

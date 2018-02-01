@@ -20,9 +20,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -74,8 +77,12 @@ public class Board implements Serializable {
 	private List<User> scrumTeam;
 	
 	//map for the burndown chart
+
+	//@LazyCollection(LazyCollectionOption.FALSE)
+
 	@OneToMany(fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL)
+	@JoinColumn(name = "bid")
 	private List<History> burnDown;
 	
 	public Board() {
@@ -103,6 +110,7 @@ public class Board implements Serializable {
 		this.scrumProductOwner = scrumProductOwner;
 		this.scrumTeam = scrumTeam;
 	}
+
 
 	public int getBid() {
 		return bid;

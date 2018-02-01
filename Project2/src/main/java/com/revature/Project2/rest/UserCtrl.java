@@ -1,5 +1,6 @@
 package com.revature.Project2.rest;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,25 @@ public class UserCtrl {
 
 	@PostMapping("/login")
 	public ResponseEntity<User> login(@RequestBody User user) {
+
 		user = userService.validateUser(user);
+
 		if (user == null) {
+
 			return new ResponseEntity<User>(user, HttpStatus.UNAUTHORIZED);
 		}
 
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
+	
+	@PostMapping("/register")
+	public ResponseEntity<User> register(@RequestBody User user) {
+		
+		user = userService.createUser(user);
+		
+		if(user == null) {
+			return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
+		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 

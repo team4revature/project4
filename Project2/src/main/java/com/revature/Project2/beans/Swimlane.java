@@ -37,11 +37,7 @@ public class Swimlane {
 	@JoinColumn(name="S_ID")
 	@OrderColumn
 	private List<Story> stories;
-	/*
-	@Column(name="LANE_INDEX")
-	private int index;
-	*/
-
+	
 	public int getSid() {
 		return sid;
 	}

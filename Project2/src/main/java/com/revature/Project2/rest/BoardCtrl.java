@@ -1,5 +1,13 @@
 package com.revature.Project2.rest;
 
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.Project2.beans.Board;
+import com.revature.Project2.beans.History;
+import com.revature.Project2.dto.HistoryDto;
+import com.revature.Project2.beans.Story;
+import com.revature.Project2.dto.SwimlaneDTO;
+import com.revature.Project2.beans.User;
 import com.revature.Project2.beans.Swimlane;
 import com.revature.Project2.beans.User;
 import com.revature.Project2.dto.AddUserDTO;
@@ -84,6 +97,25 @@ public class BoardCtrl {
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
 	
+
+	@GetMapping("/burndown/{id}")
+	public List<HistoryDto> getBurndownByBoardId(@PathVariable int id, HttpSession session) {
+		
+		System.out.println("session is now " + session.getId());
+		
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+		
+		List<History> history = boardService.getBurndown(id);
+		List<HistoryDto> burndown = new ArrayList<>();
+		
+		for(History h : history) {
+			burndown.add(new HistoryDto(h.getHid(), sf.format(h.getKey()), h.getValue() ));
+		}
+		System.out.println("hit burndown");
+		return burndown;
+	}
+	
+
 	@PostMapping("/updateBoard")
 	public ResponseEntity saveBoard(@RequestBody AddUserDTO dto) {
 		boardService.addUsers(dto);
@@ -91,7 +123,7 @@ public class BoardCtrl {
 		return new ResponseEntity(HttpStatus.ACCEPTED);
 	}
 	
-	@PostMapping("/board/addswimlane")
+	@PostMapping("/board/addswimlane") //COME BACK HERE--------------------------------------------
 	public ResponseEntity<Board> createSwimlane(@RequestBody SwimlaneDTO dto) {
 		return new ResponseEntity<Board>(boardService.addSwimlane(dto), HttpStatus.CREATED);
 	}
@@ -99,5 +131,10 @@ public class BoardCtrl {
 	@PostMapping("/board/updateswimlanes")
 	public ResponseEntity<List<Swimlane>> updateSwimlanes(@RequestBody Board board) {
 		return new ResponseEntity<List<Swimlane>>(boardService.updateSwimlanes(board), HttpStatus.OK);
+	}
+	
+	@PostMapping("/board/updateburndown")
+	public ResponseEntity<List<History>> updateBurnDown(@RequestBody Board board ) {
+		return new ResponseEntity<List<History>>(boardService.updateHistory(board), HttpStatus.OK);
 	}
 }

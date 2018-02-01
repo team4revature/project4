@@ -38,15 +38,6 @@ public class Swimlane {
 	@OrderColumn
 	private List<Story> stories;
 	
-	@Column(name="B_ID")
-	private int bid;
-	
-	
-	/*
-	@Column(name="LANE_INDEX")
-	private int index;
-	*/
-
 	public int getBid() {
 		return bid;
 	}

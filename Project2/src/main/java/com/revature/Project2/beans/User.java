@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -53,12 +54,7 @@ public class User implements Serializable {
 	inverseJoinColumns = @JoinColumn(name = "BOARD_ID", 
 	referencedColumnName = "B_ID"))
 	private List<Board> boards;
-	
-	//list of stories the user is working on
-//	@OneToMany(fetch=FetchType.EAGER)
-//	private List<Story> stories;
-	
-	
+
 	public int getUid() {
 		return uid;
 	}

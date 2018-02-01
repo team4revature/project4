@@ -56,15 +56,6 @@ public class SwimlaneCtrl {
 			this.updateHistory(swimlane, difficulty);
 		}
 		System.out.println("After history -------------------------------");
-		/*
-		List<History> history = histRepo.findHistoryByBid(swimlane.getBid());
-		//System.out.println("history is " + history);
-		history.sort(Comparator.comparing(History::getHid));
-		int value = history.get(history.size() - 1).getValue();
-		History hist = new History(new Date(),( value - 
-			(swimlane.getStories().get(dto.getIndex()).getDifficulty())), swimlane.getBid());
-		histRepo.save(hist);
-		*/
 		swimService.removeStory(dto);
 		this.canExecute = true;
 		return new ResponseEntity(HttpStatus.OK);

@@ -50,7 +50,7 @@ public class BoardCtrl {
         User u = userService.getUser(id);
         List<Board> b = new ArrayList<Board>();
         for (int i = 0; i < u.getBoards().size(); i++) {
-            if (u.getBoards().get(i).getScrumMaster() == id) {
+            if (u.getBoards().get(i).getScrumMaster().getUid() == id) {
                 b.add(u.getBoards().get(i));
             }
         }
@@ -75,8 +75,9 @@ public class BoardCtrl {
 	
 	@PostMapping("/createBoard")
 	public ResponseEntity<Board> createBoard(@RequestBody Board board){
+		System.out.println("in create board");
 		boardService.createBoard(board);
-		User u = userService.getUser(board.getScrumMaster());
+		User u = userService.getUser(board.getScrumMaster().getUid());
 		u.getBoards().add(board);
 		userService.createUser(u);	
 		

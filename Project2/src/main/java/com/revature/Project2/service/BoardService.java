@@ -28,7 +28,7 @@ public class BoardService {
 		ArrayList<Board> ret = new ArrayList<Board>();
 		ab=(ArrayList<Board>) boardRepo.findAll();
 		for(int i = 0;i< ab.size();i++) {
-			if(ab.get(i).getScrumMaster()== id) {
+			if(ab.get(i).getScrumMaster().getUid()== id) {
 				ret.add(ab.get(i));
 			}
 		}

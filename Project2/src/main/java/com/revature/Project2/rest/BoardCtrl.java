@@ -69,7 +69,6 @@ public class BoardCtrl {
 	
 	@PostMapping("/updateBoard")
 	public ResponseEntity saveBoard(@RequestBody AddUserDTO dto) {
-		System.out.println(dto.getBid() +" " + dto.getUid());
 		boardService.addUsers(dto);
 		
 		return new ResponseEntity(HttpStatus.ACCEPTED);
